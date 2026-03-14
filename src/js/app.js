@@ -2,72 +2,116 @@
    App — Brand/layout switching, token inspector, live editing
    ========================================================================== */
 
+// --- Primitive tokens by type ---
+const PRIMITIVES = {
+  color: {
+    '--color-navy-900':       '#0a1633',
+    '--color-black-900':      '#111111',
+    '--color-black-alpha-81': 'rgba(0, 0, 0, 0.81)',
+    '--color-black-alpha-58': 'rgba(0, 0, 0, 0.58)',
+    '--color-blue-600':       '#096dd2',
+    '--color-blue-601':       '#0f6cc9',
+    '--color-white':          '#ffffff',
+    '--color-grey-50':        '#f5f5f5',
+    '--color-grey-100':       '#e8e8e8',
+    '--color-grey-200':       '#d4d4d4',
+    '--color-grey-500':       '#6b6b6b',
+  },
+  font: {
+    '--font-playfair':  '"Playfair Display"',
+    '--font-pt-sans':   '"PT Sans"',
+    '--font-pt-serif':  '"PT Serif"',
+    '--font-lora':      '"Lora"',
+    '--font-nunito':    '"Nunito"',
+    '--font-noto-sans': '"Noto Sans"',
+  },
+  size: {
+    '--font-size-xs':    '0.75rem',
+    '--font-size-sm':    '0.875rem',
+    '--font-size-md':    '1rem',
+    '--font-size-lg':    '1.25rem',
+    '--font-size-xl':    '1.5rem',
+    '--font-size-xl-2':  '1.875rem',
+    '--font-size-2xl':   '2rem',
+    '--font-weight-normal': '400',
+    '--font-weight-bold':   '700',
+    '--spacing-xs':  '4px',
+    '--spacing-sm':  '8px',
+    '--spacing-md':  '12px',
+    '--spacing-lg':  '16px',
+    '--spacing-xl':  '24px',
+    '--spacing-2xl': '32px',
+    '--radius-sm':   '2px',
+    '--radius-md':   '4px',
+  },
+};
+
 // Semantic token → primitive token (per brand)
 const BRANDS = {
   broadsheet: {
     label: 'Broadsheet',
     tokens: {
-      '--heading-font':   { primitive: '--font-playfair',    value: '"Playfair Display", "Book Antiqua", Palatino, Georgia, serif', type: 'font' },
-      '--heading-size':   { primitive: '--font-size-xl',     value: '1.5rem',     type: 'size' },
-      '--heading-color':  { primitive: '--color-navy-900',   value: '#0a1633',    type: 'color' },
-      '--heading-weight': { primitive: '--font-weight-bold', value: '700',        type: 'size' },
-      '--body-font':      { primitive: '--font-pt-serif',    value: '"PT Serif", Georgia, Times, "Times New Roman", serif', type: 'font' },
-      '--body-size':      { primitive: '--font-size-md',     value: '1rem',       type: 'size' },
-      '--body-color':     { primitive: '--color-navy-900',   value: '#0a1633',    type: 'color' },
-      '--ui-font':        { primitive: '--font-pt-sans',     value: '"PT Sans", Arial, Helvetica, sans-serif', type: 'font' },
-      '--label-size':     { primitive: '--font-size-sm',     value: '0.875rem',   type: 'size' },
-      '--caption-size':   { primitive: '--font-size-xs',     value: '0.75rem',    type: 'size' },
-      '--caption-color':  { primitive: '--color-grey-500',   value: '#6b6b6b',    type: 'color' },
-      '--accent-color':   { primitive: '--color-blue-600',   value: '#096dd2',    type: 'color' },
-      '--surface-bg':     { primitive: '--color-white',      value: '#ffffff',    type: 'color' },
-      '--border-color':   { primitive: '--color-grey-200',   value: '#d4d4d4',    type: 'color' },
-      '--space-tight':    { primitive: '--spacing-md',       value: '12px',       type: 'size' },
-      '--space-loose':    { primitive: '--spacing-xl',       value: '24px',       type: 'size' },
-      '--radius':         { primitive: '--radius-sm',        value: '2px',        type: 'size' },
+      '--heading-font':   { primitive: '--font-playfair',    type: 'font' },
+      '--heading-size':   { primitive: '--font-size-xl',     type: 'size' },
+      '--heading-color':  { primitive: '--color-navy-900',   type: 'color' },
+      '--heading-weight': { primitive: '--font-weight-bold', type: 'size' },
+      '--body-font':      { primitive: '--font-pt-serif',    type: 'font' },
+      '--body-size':      { primitive: '--font-size-md',     type: 'size' },
+      '--body-color':     { primitive: '--color-navy-900',   type: 'color' },
+      '--ui-font':        { primitive: '--font-pt-sans',     type: 'font' },
+      '--label-size':     { primitive: '--font-size-sm',     type: 'size' },
+      '--caption-size':   { primitive: '--font-size-xs',     type: 'size' },
+      '--caption-color':  { primitive: '--color-grey-500',   type: 'color' },
+      '--accent-color':   { primitive: '--color-blue-600',   type: 'color' },
+      '--surface-bg':     { primitive: '--color-white',      type: 'color' },
+      '--border-color':   { primitive: '--color-grey-200',   type: 'color' },
+      '--space-tight':    { primitive: '--spacing-md',       type: 'size' },
+      '--space-loose':    { primitive: '--spacing-xl',       type: 'size' },
+      '--radius':         { primitive: '--radius-sm',        type: 'size' },
     }
   },
   tabloid: {
     label: 'Tabloid',
     tokens: {
-      '--heading-font':   { primitive: '--font-nunito',          value: '"Nunito", sans-serif', type: 'font' },
-      '--heading-size':   { primitive: '--font-size-xl',         value: '1.5rem',     type: 'size' },
-      '--heading-color':  { primitive: '--color-black-alpha-81', value: 'rgba(0, 0, 0, 0.81)', type: 'color' },
-      '--heading-weight': { primitive: '--font-weight-bold',     value: '700',        type: 'size' },
-      '--body-font':      { primitive: '--font-noto-sans',       value: '"Noto Sans", sans-serif', type: 'font' },
-      '--body-size':      { primitive: '--font-size-md',         value: '1rem',       type: 'size' },
-      '--body-color':     { primitive: '--color-black-alpha-81', value: 'rgba(0, 0, 0, 0.81)', type: 'color' },
-      '--ui-font':        { primitive: '--font-noto-sans',       value: '"Noto Sans", sans-serif', type: 'font' },
-      '--label-size':     { primitive: '--font-size-sm',         value: '0.875rem',   type: 'size' },
-      '--caption-size':   { primitive: '--font-size-xs',         value: '0.75rem',    type: 'size' },
-      '--caption-color':  { primitive: '--color-black-alpha-58', value: 'rgba(0, 0, 0, 0.58)', type: 'color' },
-      '--accent-color':   { primitive: '--color-black-alpha-58', value: 'rgba(0, 0, 0, 0.58)', type: 'color' },
-      '--surface-bg':     { primitive: '--color-white',          value: '#ffffff',    type: 'color' },
-      '--border-color':   { primitive: '--color-grey-100',       value: '#e8e8e8',    type: 'color' },
-      '--space-tight':    { primitive: '--spacing-sm',           value: '8px',        type: 'size' },
-      '--space-loose':    { primitive: '--spacing-md',           value: '12px',       type: 'size' },
-      '--radius':         { primitive: '--radius-md',            value: '4px',        type: 'size' },
+      '--heading-font':   { primitive: '--font-nunito',          type: 'font' },
+      '--heading-size':   { primitive: '--font-size-xl',         type: 'size' },
+      '--heading-color':  { primitive: '--color-black-alpha-81', type: 'color' },
+      '--heading-weight': { primitive: '--font-weight-bold',     type: 'size' },
+      '--body-font':      { primitive: '--font-noto-sans',       type: 'font' },
+      '--body-size':      { primitive: '--font-size-md',         type: 'size' },
+      '--body-color':     { primitive: '--color-black-alpha-81', type: 'color' },
+      '--ui-font':        { primitive: '--font-noto-sans',       type: 'font' },
+      '--label-size':     { primitive: '--font-size-sm',         type: 'size' },
+      '--caption-size':   { primitive: '--font-size-xs',         type: 'size' },
+      '--caption-color':  { primitive: '--color-black-alpha-58', type: 'color' },
+      '--accent-color':   { primitive: '--color-black-alpha-58', type: 'color' },
+      '--surface-bg':     { primitive: '--color-white',          type: 'color' },
+      '--border-color':   { primitive: '--color-grey-100',       type: 'color' },
+      '--space-tight':    { primitive: '--spacing-sm',           type: 'size' },
+      '--space-loose':    { primitive: '--spacing-md',           type: 'size' },
+      '--radius':         { primitive: '--radius-md',            type: 'size' },
     }
   },
   financial: {
     label: 'Financial',
     tokens: {
-      '--heading-font':   { primitive: '--font-lora',        value: '"Lora", Times, serif', type: 'font' },
-      '--heading-size':   { primitive: '--font-size-xl-2',   value: '1.875rem',   type: 'size' },
-      '--heading-color':  { primitive: '--color-black-900',  value: '#111111',    type: 'color' },
-      '--heading-weight': { primitive: '--font-weight-bold', value: '700',        type: 'size' },
-      '--body-font':      { primitive: '--font-lora',        value: '"Lora", Times, serif', type: 'font' },
-      '--body-size':      { primitive: '--font-size-md',     value: '1rem',       type: 'size' },
-      '--body-color':     { primitive: '--color-black-900',  value: '#111111',    type: 'color' },
-      '--ui-font':        { primitive: '--font-lora',        value: '"Lora", Times, serif', type: 'font' },
-      '--label-size':     { primitive: '--font-size-xs',     value: '0.75rem',    type: 'size' },
-      '--caption-size':   { primitive: '--font-size-xs',     value: '0.75rem',    type: 'size' },
-      '--caption-color':  { primitive: '--color-grey-500',   value: '#6b6b6b',    type: 'color' },
-      '--accent-color':   { primitive: '--color-blue-601',   value: '#0f6cc9',    type: 'color' },
-      '--surface-bg':     { primitive: '--color-white',      value: '#ffffff',    type: 'color' },
-      '--border-color':   { primitive: '--color-grey-200',   value: '#d4d4d4',    type: 'color' },
-      '--space-tight':    { primitive: '--spacing-sm',       value: '8px',        type: 'size' },
-      '--space-loose':    { primitive: '--spacing-sm',       value: '8px',        type: 'size' },
-      '--radius':         { primitive: '--radius-sm',        value: '2px',        type: 'size' },
+      '--heading-font':   { primitive: '--font-lora',        type: 'font' },
+      '--heading-size':   { primitive: '--font-size-xl-2',   type: 'size' },
+      '--heading-color':  { primitive: '--color-black-900',  type: 'color' },
+      '--heading-weight': { primitive: '--font-weight-bold', type: 'size' },
+      '--body-font':      { primitive: '--font-lora',        type: 'font' },
+      '--body-size':      { primitive: '--font-size-md',     type: 'size' },
+      '--body-color':     { primitive: '--color-black-900',  type: 'color' },
+      '--ui-font':        { primitive: '--font-lora',        type: 'font' },
+      '--label-size':     { primitive: '--font-size-xs',     type: 'size' },
+      '--caption-size':   { primitive: '--font-size-xs',     type: 'size' },
+      '--caption-color':  { primitive: '--color-grey-500',   type: 'color' },
+      '--accent-color':   { primitive: '--color-blue-601',   type: 'color' },
+      '--surface-bg':     { primitive: '--color-white',      type: 'color' },
+      '--border-color':   { primitive: '--color-grey-200',   type: 'color' },
+      '--space-tight':    { primitive: '--spacing-sm',       type: 'size' },
+      '--space-loose':    { primitive: '--spacing-sm',       type: 'size' },
+      '--radius':         { primitive: '--radius-sm',        type: 'size' },
     }
   }
 };
@@ -110,66 +154,68 @@ function renderTokenList() {
   list.innerHTML = '';
 
   for (const [semantic, info] of Object.entries(tokens)) {
+    const currentPrimitive = (semantic in overrides) ? overrides[semantic] : info.primitive;
+    const isOverridden = semantic in overrides;
+
     const li = document.createElement('li');
     li.className = 'token-row';
     li.dataset.token = semantic;
-
-    const isOverridden = semantic in overrides;
     if (isOverridden) li.classList.add('token-row--modified');
 
+    // Semantic token name
     const semanticEl = document.createElement('span');
     semanticEl.className = 'token-row__semantic';
-    semanticEl.textContent = semantic;
+    semanticEl.textContent = semantic.replace(/^--/, '');
 
-    const primitiveEl = document.createElement('span');
-    primitiveEl.className = 'token-row__primitive';
-    primitiveEl.textContent = `\u2192 ${info.primitive}`;
+    // Primitive dropdown
+    const selectGroup = document.createElement('div');
+    selectGroup.className = 'token-row__input-group';
 
-    const inputGroup = document.createElement('div');
-    inputGroup.className = 'token-row__input-group';
+    const select = document.createElement('select');
+    select.className = 'token-row__select';
 
-    if (info.type === 'color') {
-      const colorInput = document.createElement('input');
-      colorInput.type = 'color';
-      colorInput.className = 'token-row__color-swatch';
-      colorInput.value = toHex(isOverridden ? overrides[semantic] : info.value);
-      colorInput.addEventListener('input', (e) => {
-        applyOverride(semantic, e.target.value);
-        const textInput = inputGroup.querySelector('.token-row__input');
-        if (textInput) textInput.value = e.target.value;
-      });
-      inputGroup.appendChild(colorInput);
+    const primitiveOptions = PRIMITIVES[info.type];
+    for (const [primName, primValue] of Object.entries(primitiveOptions)) {
+      const option = document.createElement('option');
+      option.value = primName;
+      option.textContent = `${primName.replace(/^--/, '')}  (${primValue})`;
+      if (primName === currentPrimitive) option.selected = true;
+      select.appendChild(option);
     }
 
-    const textInput = document.createElement('input');
-    textInput.type = 'text';
-    textInput.className = 'token-row__input';
-    textInput.value = isOverridden ? overrides[semantic] : info.value;
-    textInput.addEventListener('input', (e) => {
-      applyOverride(semantic, e.target.value);
-      if (info.type === 'color') {
-        const swatch = inputGroup.querySelector('.token-row__color-swatch');
-        if (swatch) {
-          const hex = toHex(e.target.value);
-          if (hex) swatch.value = hex;
-        }
-      }
+    select.addEventListener('change', (e) => {
+      const selectedPrimitive = e.target.value;
+      const value = PRIMITIVES[info.type][selectedPrimitive];
+      applyOverride(semantic, selectedPrimitive, value);
     });
-    inputGroup.appendChild(textInput);
+
+    // Color swatch preview for color tokens
+    if (info.type === 'color') {
+      const swatch = document.createElement('span');
+      swatch.className = 'token-row__swatch';
+      swatch.style.backgroundColor = PRIMITIVES.color[currentPrimitive];
+      selectGroup.appendChild(swatch);
+    }
+
+    selectGroup.appendChild(select);
 
     li.appendChild(semanticEl);
-    li.appendChild(primitiveEl);
-    li.appendChild(inputGroup);
+    li.appendChild(selectGroup);
     list.appendChild(li);
   }
 }
 
-function applyOverride(token, value) {
-  overrides[token] = value;
-  document.documentElement.style.setProperty(token, value);
+function applyOverride(semantic, primitive, value) {
+  overrides[semantic] = primitive;
+  document.documentElement.style.setProperty(semantic, value);
 
-  const row = document.querySelector(`[data-token="${token}"]`);
-  if (row) row.classList.add('token-row--modified');
+  const row = document.querySelector(`[data-token="${semantic}"]`);
+  if (row) {
+    row.classList.add('token-row--modified');
+    // Update swatch if present
+    const swatch = row.querySelector('.token-row__swatch');
+    if (swatch) swatch.style.backgroundColor = value;
+  }
 }
 
 function clearOverrides() {
@@ -184,31 +230,6 @@ document.getElementById('reset-btn').addEventListener('click', () => {
   clearOverrides();
   renderTokenList();
 });
-
-// --- Helpers ---
-function toHex(color) {
-  if (!color) return null;
-  if (color.startsWith('#')) {
-    if (color.length === 4) {
-      return '#' + color[1] + color[1] + color[2] + color[2] + color[3] + color[3];
-    }
-    return color;
-  }
-  const temp = document.createElement('div');
-  temp.style.color = color;
-  document.body.appendChild(temp);
-  const computed = getComputedStyle(temp).color;
-  document.body.removeChild(temp);
-
-  const match = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-  if (match) {
-    const r = parseInt(match[1]).toString(16).padStart(2, '0');
-    const g = parseInt(match[2]).toString(16).padStart(2, '0');
-    const b = parseInt(match[3]).toString(16).padStart(2, '0');
-    return `#${r}${g}${b}`;
-  }
-  return null;
-}
 
 // --- Init ---
 renderTokenList();

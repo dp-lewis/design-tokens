@@ -19,12 +19,12 @@
   --color-grey-500: #6b6b6b;
 
   /* --- Typography: Font Families --- */
-  --font-playfair: "Playfair Display", "Book Antiqua", Palatino, Georgia, serif;
-  --font-pt-sans: "PT Sans", Arial, Helvetica, sans-serif;
-  --font-pt-serif: "PT Serif", Georgia, Times, "Times New Roman", serif;
-  --font-lora: "Lora", Times, serif;
-  --font-nunito: "Nunito", sans-serif;
-  --font-noto-sans: "Noto Sans", sans-serif;
+  --font-playfair: "Playfair Display";
+  --font-pt-sans: "PT Sans";
+  --font-pt-serif: "PT Serif";
+  --font-lora: "Lora";
+  --font-nunito: "Nunito";
+  --font-noto-sans: "Noto Sans";
 
   /* --- Typography: Sizes --- */
   --font-size-xs: 0.75rem;
