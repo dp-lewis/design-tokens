@@ -1,45 +1,34 @@
 /* ==========================================================================
    Broadsheet — Semantic Tokens
    Traditional newspaper aesthetic. Serif headlines, blue accents.
+   Maps semantic (purpose-based) tokens → primitive (raw value) tokens.
    ========================================================================== */
 
 :root {
-  /* --- Tile Container --- */
-  --tile-bg: var(--color-white);
-  --tile-padding: var(--spacing-lg);
-  --tile-radius: var(--radius-sm);
-  --tile-border-color: var(--color-grey-200);
+  /* --- Typography --- */
+  --heading-font: var(--font-playfair);
+  --heading-size: var(--font-size-xl);
+  --heading-color: var(--color-navy-900);
+  --heading-weight: var(--font-weight-bold);
+  --body-font: var(--font-pt-serif);
+  --body-size: var(--font-size-md);
+  --body-color: var(--color-navy-900);
+  --ui-font: var(--font-pt-sans);
+  --label-size: var(--font-size-sm);
+  --caption-size: var(--font-size-xs);
+  --caption-color: var(--color-grey-500);
 
-  /* --- Headline --- */
-  --tile-headline-font: var(--font-playfair);
-  --tile-headline-size: var(--font-size-xl);
-  --tile-headline-color: var(--color-navy-900);
-  --tile-headline-weight: var(--font-weight-bold);
-
-  /* --- Kicker --- */
-  --tile-kicker-font: var(--font-pt-sans);
-  --tile-kicker-size: var(--font-size-sm);
-  --tile-kicker-color: var(--color-blue-600);
-
-  /* --- Summary --- */
-  --tile-summary-font: var(--font-pt-serif);
-  --tile-summary-size: var(--font-size-md);
-  --tile-summary-color: var(--color-navy-900);
-
-  /* --- Byline --- */
-  --tile-byline-font: var(--font-pt-sans);
-  --tile-byline-size: var(--font-size-xs);
-  --tile-byline-color: var(--color-grey-500);
-
-  /* --- Accent --- */
-  --tile-accent-color: var(--color-blue-600);
-
-  /* --- Image --- */
-  --tile-image-radius: var(--radius-sm);
+  /* --- Color --- */
+  --accent-color: var(--color-blue-600);
+  --surface-bg: var(--color-white);
+  --border-color: var(--color-grey-200);
 
   /* --- Spacing --- */
-  --tile-text-gap: var(--spacing-md);
-  --tile-content-gap: var(--spacing-xl);
+  --space-tight: var(--spacing-md);
+  --space-loose: var(--spacing-xl);
+
+  /* --- Shape --- */
+  --radius: var(--radius-sm);
 
   /* --- Element Order --- */
   --tile-kicker-order: 1;

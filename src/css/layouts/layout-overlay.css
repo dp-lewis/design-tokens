@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Layout: Overlay
+   Image fills the card, text overlaid at the bottom with gradient scrim.
+   ========================================================================== */
+
+.story-tile {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto auto auto auto;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  gap: var(--space-tight) 0;
+}
+
+.story-tile__image {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  min-height: 400px;
+  z-index: 0;
+}
+
+/* Gradient scrim behind text */
+.story-tile::after {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / -1;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.story-tile__kicker {
+  grid-column: 1;
+  grid-row: 2;
+  padding: 0 var(--space-loose);
+  color: rgba(255, 255, 255, 0.85);
+  z-index: 2;
+}
+
+.story-tile__headline {
+  grid-column: 1;
+  grid-row: 3;
+  padding: 0 var(--space-loose);
+  color: var(--color-white);
+  z-index: 2;
+}
+
+.story-tile__summary {
+  grid-column: 1;
+  grid-row: 4;
+  padding: 0 var(--space-loose);
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 2;
+}
+
+.story-tile__byline {
+  grid-column: 1;
+  grid-row: 5;
+  padding: 0 var(--space-loose) var(--space-loose);
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+}

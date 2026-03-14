@@ -1,45 +1,34 @@
 /* ==========================================================================
    Tabloid — Semantic Tokens
    Modern, sans-serif, entertainment-leaning. Muted accents.
+   Maps semantic (purpose-based) tokens → primitive (raw value) tokens.
    ========================================================================== */
 
 :root {
-  /* --- Tile Container --- */
-  --tile-bg: var(--color-white);
-  --tile-padding: var(--spacing-lg);
-  --tile-radius: var(--radius-md);
-  --tile-border-color: var(--color-grey-100);
+  /* --- Typography --- */
+  --heading-font: var(--font-nunito);
+  --heading-size: var(--font-size-xl);
+  --heading-color: var(--color-black-alpha-81);
+  --heading-weight: var(--font-weight-bold);
+  --body-font: var(--font-noto-sans);
+  --body-size: var(--font-size-md);
+  --body-color: var(--color-black-alpha-81);
+  --ui-font: var(--font-noto-sans);
+  --label-size: var(--font-size-sm);
+  --caption-size: var(--font-size-xs);
+  --caption-color: var(--color-black-alpha-58);
 
-  /* --- Headline --- */
-  --tile-headline-font: var(--font-nunito);
-  --tile-headline-size: var(--font-size-xl);
-  --tile-headline-color: var(--color-black-alpha-81);
-  --tile-headline-weight: var(--font-weight-bold);
-
-  /* --- Kicker --- */
-  --tile-kicker-font: var(--font-noto-sans);
-  --tile-kicker-size: var(--font-size-sm);
-  --tile-kicker-color: var(--color-black-alpha-58);
-
-  /* --- Summary --- */
-  --tile-summary-font: var(--font-noto-sans);
-  --tile-summary-size: var(--font-size-md);
-  --tile-summary-color: var(--color-black-alpha-81);
-
-  /* --- Byline --- */
-  --tile-byline-font: var(--font-noto-sans);
-  --tile-byline-size: var(--font-size-xs);
-  --tile-byline-color: var(--color-black-alpha-58);
-
-  /* --- Accent --- */
-  --tile-accent-color: var(--color-black-alpha-58);
-
-  /* --- Image --- */
-  --tile-image-radius: var(--radius-md);
+  /* --- Color --- */
+  --accent-color: var(--color-black-alpha-58);
+  --surface-bg: var(--color-white);
+  --border-color: var(--color-grey-100);
 
   /* --- Spacing --- */
-  --tile-text-gap: var(--spacing-sm);
-  --tile-content-gap: var(--spacing-md);
+  --space-tight: var(--spacing-sm);
+  --space-loose: var(--spacing-md);
+
+  /* --- Shape --- */
+  --radius: var(--radius-md);
 
   /* --- Element Order --- */
   --tile-image-order: 1;

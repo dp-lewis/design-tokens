@@ -1,0 +1,11 @@
+/* ==========================================================================
+   Layout: Stacked
+   Classic vertical card — respects brand element ordering via flex order.
+   This is essentially the default layout, made explicit.
+   ========================================================================== */
+
+.story-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-tight);
+}

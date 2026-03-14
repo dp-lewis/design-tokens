@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Page Layout
+   Tile centred in main area, side panel on the right.
+   ========================================================================== */
+
+.page {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.page__main {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 2rem;
+}
+
+.page__panel {
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}

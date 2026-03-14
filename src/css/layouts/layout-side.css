@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Layout: Side-by-side
+   Image to the left (~40%), text content to the right (~60%).
+   ========================================================================== */
+
+.story-tile {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-areas:
+    "image kicker"
+    "image headline"
+    "image summary"
+    "image byline";
+  gap: var(--space-tight) var(--space-loose);
+  align-content: start;
+}
+
+.story-tile__image {
+  grid-area: image;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+.story-tile__kicker {
+  grid-area: kicker;
+  align-self: end;
+}
+
+.story-tile__headline {
+  grid-area: headline;
+}
+
+.story-tile__summary {
+  grid-area: summary;
+}
+
+.story-tile__byline {
+  grid-area: byline;
+}

@@ -18,85 +18,69 @@
 
   <!-- Component styles (always loaded) -->
   <link rel="stylesheet" href="css/components/tile.css">
+  <link rel="stylesheet" href="css/components/page.css">
+  <link rel="stylesheet" href="css/components/panel.css">
+
+  <!-- Layout (swappable — loaded after components so it can override) -->
+  <link rel="stylesheet" href="css/layouts/layout-stacked.css" id="layout-css">
 
   <style>
     body {
       margin: 0;
-      padding: 2rem;
       background: #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      min-height: 100vh;
       font-family: system-ui, sans-serif;
-    }
-
-    .brand-switcher {
-      display: flex;
-      gap: 0;
-    }
-
-    .brand-switcher__btn {
-      padding: 0.5rem 1.25rem;
-      border: 1px solid #ccc;
-      background: #fff;
-      font-family: system-ui, sans-serif;
-      font-size: 0.875rem;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .brand-switcher__btn:first-child {
-      border-radius: 4px 0 0 4px;
-    }
-
-    .brand-switcher__btn:last-child {
-      border-radius: 0 4px 4px 0;
-    }
-
-    .brand-switcher__btn + .brand-switcher__btn {
-      border-left: none;
-    }
-
-    .brand-switcher__btn[aria-pressed="true"] {
-      background: #333;
-      color: #fff;
-      border-color: #333;
     }
   </style>
 </head>
 <body>
 
-  <div class="brand-switcher">
-    <button class="brand-switcher__btn" aria-pressed="true" data-brand="broadsheet">Broadsheet</button>
-    <button class="brand-switcher__btn" aria-pressed="false" data-brand="tabloid">Tabloid</button>
-    <button class="brand-switcher__btn" aria-pressed="false" data-brand="financial">Financial</button>
+  <div class="page">
+    <main class="page__main">
+      <article class="story-tile">
+        <p class="story-tile__kicker">Politics</p>
+        <img
+          class="story-tile__image"
+          src="https://picsum.photos/seed/tokens/800/533"
+          alt="Placeholder image"
+        >
+        <h2 class="story-tile__headline">Government Announces Sweeping Changes to National Infrastructure Plan</h2>
+        <p class="story-tile__summary">The federal government has unveiled a revised infrastructure strategy that prioritises regional transport links and renewable energy projects over previously planned urban motorway expansions.</p>
+        <p class="story-tile__byline">By Jane Mitchell · March 14, 2026</p>
+      </article>
+    </main>
+
+    <aside class="page__panel">
+      <div class="panel">
+        <div class="panel__section">
+          <h3 class="panel__heading">Brand</h3>
+          <div class="switcher" id="brand-switcher">
+            <button class="switcher__btn" aria-pressed="true" data-brand="broadsheet">Broadsheet</button>
+            <button class="switcher__btn" aria-pressed="false" data-brand="tabloid">Tabloid</button>
+            <button class="switcher__btn" aria-pressed="false" data-brand="financial">Financial</button>
+          </div>
+        </div>
+
+        <div class="panel__section">
+          <h3 class="panel__heading">Layout</h3>
+          <div class="switcher" id="layout-switcher">
+            <button class="switcher__btn" aria-pressed="true" data-layout="layout-stacked">Stacked</button>
+            <button class="switcher__btn" aria-pressed="false" data-layout="layout-side">Side</button>
+            <button class="switcher__btn" aria-pressed="false" data-layout="layout-overlay">Overlay</button>
+          </div>
+        </div>
+
+        <div class="panel__section">
+          <h3 class="panel__heading">Token Inspector</h3>
+          <ul class="token-list" id="token-list"></ul>
+        </div>
+
+        <div class="panel__section">
+          <button class="panel__reset" id="reset-btn">Reset to brand defaults</button>
+        </div>
+      </div>
+    </aside>
   </div>
 
-  <article class="story-tile">
-    <p class="story-tile__kicker">Politics</p>
-    <img
-      class="story-tile__image"
-      src="https://picsum.photos/seed/tokens/800/533"
-      alt="Placeholder image"
-    >
-    <h2 class="story-tile__headline">Government Announces Sweeping Changes to National Infrastructure Plan</h2>
-    <p class="story-tile__summary">The federal government has unveiled a revised infrastructure strategy that prioritises regional transport links and renewable energy projects over previously planned urban motorway expansions.</p>
-    <p class="story-tile__byline">By Jane Mitchell · March 14, 2026</p>
-  </article>
-
-  <script>
-    document.querySelector('.brand-switcher').addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-brand]');
-      if (!btn) return;
-
-      document.getElementById('brand-css').href = `css/brands/${btn.dataset.brand}.css`;
-
-      document.querySelectorAll('.brand-switcher__btn').forEach(b => {
-        b.setAttribute('aria-pressed', b === btn);
-      });
-    });
-  </script>
+  <script src="js/app.js"></script>
 </body>
 </html>
