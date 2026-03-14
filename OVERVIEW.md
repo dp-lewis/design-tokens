@@ -23,11 +23,11 @@ Tokens work in two layers:
 
 Components only use semantic tokens. This means a brand can change its headline color by pointing `tile-headline-color` at a different primitive token — no component code changes, and the intent remains clear.
 
-## Why tokens matter for Nine
+## Why tokens matter for multi-brand publishers
 
 ### The problem
 
-Nine operates multiple brand sites — **SMH**, **The Age**, **Brisbane Times**, **WA Today**, **nine.com.au**, and **AFR** — each with its own visual identity. Today, design values like colors, spacing, and typography are duplicated across brand codebases. This leads to:
+Large news publishers often operate multiple brand sites under one roof — think the *New York Times* and *The Athletic*, the *Guardian* and *Observer*, or *Der Spiegel* and *Manager Magazin*. Each brand carries its own visual identity, but they share components, infrastructure, and often the same development teams. When design values like colors, spacing, and typography are duplicated across brand codebases, problems emerge:
 
 - **Inconsistency** — the same spacing scale defined slightly differently per brand
 - **Slow updates** — changing a brand color means finding and replacing values across multiple files
@@ -53,7 +53,7 @@ A shared set of **primitive tokens** defines structural decisions that all brand
 
 **Semantic tokens** (per-brand, referencing primitive tokens):
 
-| Semantic Token            | SMH                  | The Age               | AFR                  |
+| Semantic Token            | Brand A (broadsheet)  | Brand B (tabloid)      | Brand C (financial)   |
 |---------------------------|----------------------|-----------------------|----------------------|
 | `tile-headline-color`     | `{color.blue.800}`   | `{color.neutral.900}` | `{color.teal.700}`   |
 | `tile-headline-font`      | `{font.serif}`       | `{font.serif}`        | `{font.sans}`        |
@@ -77,10 +77,10 @@ Each brand can also apply a CSS class that uses **CSS Grid** to reorder elements
 
 Next to the story tile, a **side panel** provides two separate controls:
 
-1. **Brand tokens** — switch between SMH, The Age, AFR (swaps the semantic token set → changes colors, typography, spacing)
+1. **Brand tokens** — switch between brands (swaps the semantic token set → changes colors, typography, spacing)
 2. **Layout** — switch between layout classes (swaps the CSS Grid rules → changes element order and placement)
 
-These two controls operate **independently**. You can apply SMH's tokens with AFR's layout, or The Age's tokens with SMH's layout — any combination. This is the key insight: **tokens control appearance, CSS classes control structure**, and they compose freely because they're separate concerns.
+These two controls operate **independently**. You can apply one brand's tokens with another brand's layout — any combination. This is the key insight: **tokens control appearance, CSS classes control structure**, and they compose freely because they're separate concerns.
 
 Below the controls, the panel displays the active token chain for each styled property:
 
@@ -108,9 +108,9 @@ When you switch brand tokens, the fields repopulate with that brand's values. Wh
 css/
   primitives.css       ← shared primitive tokens (colors, spacing, type)
   brands/
-    smh.css            ← SMH semantic tokens (reference primitives)
-    theage.css         ← The Age semantic tokens
-    afr.css            ← AFR semantic tokens
+    herald.css         ← Herald semantic tokens (reference primitives)
+    metro.css          ← Metro semantic tokens
+    financial.css      ← Financial semantic tokens
   layouts/
     layout-a.css       ← CSS Grid layout variant A
     layout-b.css       ← CSS Grid layout variant B
@@ -134,7 +134,7 @@ Primitive tokens define the raw palette in `:root`. Brand files then map semanti
   --font-sans: Arial, sans-serif;
 }
 
-/* css/brands/smh.css */
+/* css/brands/herald.css */
 :root {
   --tile-headline-color: var(--color-blue-800);
   --tile-headline-font: var(--font-serif);
