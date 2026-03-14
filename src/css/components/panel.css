@@ -77,6 +77,19 @@
   gap: 0.75rem;
 }
 
+.token-group-heading {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #aaa;
+  padding-top: 0.5rem;
+}
+
+.token-group-heading:first-child {
+  padding-top: 0;
+}
+
 .token-row {
   display: flex;
   flex-direction: column;

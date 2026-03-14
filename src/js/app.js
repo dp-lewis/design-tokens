@@ -47,71 +47,93 @@ const PRIMITIVES = {
 };
 
 // Semantic token → primitive token (per brand)
+// Token definitions with groups — order matters for display
+const TOKEN_DEFS = [
+  { token: '--heading-font',   group: 'Typography', type: 'font' },
+  { token: '--heading-size',   group: 'Typography', type: 'size' },
+  { token: '--heading-color',  group: 'Typography', type: 'color' },
+  { token: '--heading-weight', group: 'Typography', type: 'size' },
+  { token: '--body-font',      group: 'Typography', type: 'font' },
+  { token: '--body-size',      group: 'Typography', type: 'size' },
+  { token: '--body-color',     group: 'Typography', type: 'color' },
+  { token: '--ui-font',        group: 'Typography', type: 'font' },
+  { token: '--label-size',     group: 'Typography', type: 'size' },
+  { token: '--caption-size',   group: 'Typography', type: 'size' },
+  { token: '--caption-color',  group: 'Typography', type: 'color' },
+  { token: '--accent-color',   group: 'Color',      type: 'color' },
+  { token: '--surface-bg',     group: 'Color',      type: 'color' },
+  { token: '--border-color',   group: 'Color',      type: 'color' },
+  { token: '--space-tight',    group: 'Spacing',    type: 'size' },
+  { token: '--space-loose',    group: 'Spacing',    type: 'size' },
+  { token: '--radius',         group: 'Spacing',    type: 'size' },
+];
+
+// Per-brand primitive mappings
 const BRANDS = {
   broadsheet: {
     label: 'Broadsheet',
-    tokens: {
-      '--heading-font':   { primitive: '--font-playfair',    type: 'font' },
-      '--heading-size':   { primitive: '--font-size-xl',     type: 'size' },
-      '--heading-color':  { primitive: '--color-navy-900',   type: 'color' },
-      '--heading-weight': { primitive: '--font-weight-bold', type: 'size' },
-      '--body-font':      { primitive: '--font-pt-serif',    type: 'font' },
-      '--body-size':      { primitive: '--font-size-md',     type: 'size' },
-      '--body-color':     { primitive: '--color-navy-900',   type: 'color' },
-      '--ui-font':        { primitive: '--font-pt-sans',     type: 'font' },
-      '--label-size':     { primitive: '--font-size-sm',     type: 'size' },
-      '--caption-size':   { primitive: '--font-size-xs',     type: 'size' },
-      '--caption-color':  { primitive: '--color-grey-500',   type: 'color' },
-      '--accent-color':   { primitive: '--color-blue-600',   type: 'color' },
-      '--surface-bg':     { primitive: '--color-white',      type: 'color' },
-      '--border-color':   { primitive: '--color-grey-200',   type: 'color' },
-      '--space-tight':    { primitive: '--spacing-md',       type: 'size' },
-      '--space-loose':    { primitive: '--spacing-xl',       type: 'size' },
-      '--radius':         { primitive: '--radius-sm',        type: 'size' },
+    primitives: {
+      '--heading-font':   '--font-playfair',
+      '--heading-size':   '--font-size-xl',
+      '--heading-color':  '--color-navy-900',
+      '--heading-weight': '--font-weight-bold',
+      '--body-font':      '--font-pt-serif',
+      '--body-size':      '--font-size-md',
+      '--body-color':     '--color-navy-900',
+      '--ui-font':        '--font-pt-sans',
+      '--label-size':     '--font-size-sm',
+      '--caption-size':   '--font-size-xs',
+      '--caption-color':  '--color-grey-500',
+      '--accent-color':   '--color-blue-600',
+      '--surface-bg':     '--color-white',
+      '--border-color':   '--color-grey-200',
+      '--space-tight':    '--spacing-md',
+      '--space-loose':    '--spacing-xl',
+      '--radius':         '--radius-sm',
     }
   },
   tabloid: {
     label: 'Tabloid',
-    tokens: {
-      '--heading-font':   { primitive: '--font-nunito',          type: 'font' },
-      '--heading-size':   { primitive: '--font-size-xl',         type: 'size' },
-      '--heading-color':  { primitive: '--color-black-alpha-81', type: 'color' },
-      '--heading-weight': { primitive: '--font-weight-bold',     type: 'size' },
-      '--body-font':      { primitive: '--font-noto-sans',       type: 'font' },
-      '--body-size':      { primitive: '--font-size-md',         type: 'size' },
-      '--body-color':     { primitive: '--color-black-alpha-81', type: 'color' },
-      '--ui-font':        { primitive: '--font-noto-sans',       type: 'font' },
-      '--label-size':     { primitive: '--font-size-sm',         type: 'size' },
-      '--caption-size':   { primitive: '--font-size-xs',         type: 'size' },
-      '--caption-color':  { primitive: '--color-black-alpha-58', type: 'color' },
-      '--accent-color':   { primitive: '--color-black-alpha-58', type: 'color' },
-      '--surface-bg':     { primitive: '--color-white',          type: 'color' },
-      '--border-color':   { primitive: '--color-grey-100',       type: 'color' },
-      '--space-tight':    { primitive: '--spacing-sm',           type: 'size' },
-      '--space-loose':    { primitive: '--spacing-md',           type: 'size' },
-      '--radius':         { primitive: '--radius-md',            type: 'size' },
+    primitives: {
+      '--heading-font':   '--font-nunito',
+      '--heading-size':   '--font-size-xl',
+      '--heading-color':  '--color-black-alpha-81',
+      '--heading-weight': '--font-weight-bold',
+      '--body-font':      '--font-noto-sans',
+      '--body-size':      '--font-size-md',
+      '--body-color':     '--color-black-alpha-81',
+      '--ui-font':        '--font-noto-sans',
+      '--label-size':     '--font-size-sm',
+      '--caption-size':   '--font-size-xs',
+      '--caption-color':  '--color-black-alpha-58',
+      '--accent-color':   '--color-black-alpha-58',
+      '--surface-bg':     '--color-white',
+      '--border-color':   '--color-grey-100',
+      '--space-tight':    '--spacing-sm',
+      '--space-loose':    '--spacing-md',
+      '--radius':         '--radius-md',
     }
   },
   financial: {
     label: 'Financial',
-    tokens: {
-      '--heading-font':   { primitive: '--font-lora',        type: 'font' },
-      '--heading-size':   { primitive: '--font-size-xl-2',   type: 'size' },
-      '--heading-color':  { primitive: '--color-black-900',  type: 'color' },
-      '--heading-weight': { primitive: '--font-weight-bold', type: 'size' },
-      '--body-font':      { primitive: '--font-lora',        type: 'font' },
-      '--body-size':      { primitive: '--font-size-md',     type: 'size' },
-      '--body-color':     { primitive: '--color-black-900',  type: 'color' },
-      '--ui-font':        { primitive: '--font-lora',        type: 'font' },
-      '--label-size':     { primitive: '--font-size-xs',     type: 'size' },
-      '--caption-size':   { primitive: '--font-size-xs',     type: 'size' },
-      '--caption-color':  { primitive: '--color-grey-500',   type: 'color' },
-      '--accent-color':   { primitive: '--color-blue-601',   type: 'color' },
-      '--surface-bg':     { primitive: '--color-white',      type: 'color' },
-      '--border-color':   { primitive: '--color-grey-200',   type: 'color' },
-      '--space-tight':    { primitive: '--spacing-sm',       type: 'size' },
-      '--space-loose':    { primitive: '--spacing-sm',       type: 'size' },
-      '--radius':         { primitive: '--radius-sm',        type: 'size' },
+    primitives: {
+      '--heading-font':   '--font-lora',
+      '--heading-size':   '--font-size-xl-2',
+      '--heading-color':  '--color-black-900',
+      '--heading-weight': '--font-weight-bold',
+      '--body-font':      '--font-lora',
+      '--body-size':      '--font-size-md',
+      '--body-color':     '--color-black-900',
+      '--ui-font':        '--font-lora',
+      '--label-size':     '--font-size-xs',
+      '--caption-size':   '--font-size-xs',
+      '--caption-color':  '--color-grey-500',
+      '--accent-color':   '--color-blue-601',
+      '--surface-bg':     '--color-white',
+      '--border-color':   '--color-grey-200',
+      '--space-tight':    '--spacing-sm',
+      '--space-loose':    '--spacing-sm',
+      '--radius':         '--radius-sm',
     }
   }
 };
@@ -150,11 +172,26 @@ document.getElementById('layout-switcher').addEventListener('click', (e) => {
 // --- Token inspector ---
 function renderTokenList() {
   const list = document.getElementById('token-list');
-  const tokens = BRANDS[currentBrand].tokens;
+  const brand = BRANDS[currentBrand];
   list.innerHTML = '';
 
-  for (const [semantic, info] of Object.entries(tokens)) {
-    const currentPrimitive = (semantic in overrides) ? overrides[semantic] : info.primitive;
+  let currentGroup = null;
+
+  for (const def of TOKEN_DEFS) {
+    const semantic = def.token;
+    const defaultPrimitive = brand.primitives[semantic];
+    if (!defaultPrimitive) continue;
+
+    // Group heading
+    if (def.group !== currentGroup) {
+      currentGroup = def.group;
+      const heading = document.createElement('li');
+      heading.className = 'token-group-heading';
+      heading.textContent = currentGroup;
+      list.appendChild(heading);
+    }
+
+    const currentPrimitive = (semantic in overrides) ? overrides[semantic] : defaultPrimitive;
     const isOverridden = semantic in overrides;
 
     const li = document.createElement('li');
@@ -174,7 +211,7 @@ function renderTokenList() {
     const select = document.createElement('select');
     select.className = 'token-row__select';
 
-    const primitiveOptions = PRIMITIVES[info.type];
+    const primitiveOptions = PRIMITIVES[def.type];
     for (const [primName, primValue] of Object.entries(primitiveOptions)) {
       const option = document.createElement('option');
       option.value = primName;
@@ -185,12 +222,12 @@ function renderTokenList() {
 
     select.addEventListener('change', (e) => {
       const selectedPrimitive = e.target.value;
-      const value = PRIMITIVES[info.type][selectedPrimitive];
+      const value = PRIMITIVES[def.type][selectedPrimitive];
       applyOverride(semantic, selectedPrimitive, value);
     });
 
     // Color swatch preview for color tokens
-    if (info.type === 'color') {
+    if (def.type === 'color') {
       const swatch = document.createElement('span');
       swatch.className = 'token-row__swatch';
       swatch.style.backgroundColor = PRIMITIVES.color[currentPrimitive];
