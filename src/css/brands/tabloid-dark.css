@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Tabloid Dark — Semantic Token Overrides
+   Dark palette with the Tabloid brand identity preserved.
+   ========================================================================== */
+
+:root {
+  --surface-bg: var(--color-black-700);
+  --border-color: var(--color-black-600);
+  --heading-color: var(--color-white-alpha-87);
+  --body-color: var(--color-white-alpha-72);
+  --caption-color: var(--color-white-alpha-45);
+  --accent-color: var(--color-white-alpha-45);
+}

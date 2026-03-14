@@ -16,6 +16,26 @@ const PRIMITIVES = {
     '--color-grey-100':       '#e8e8e8',
     '--color-grey-200':       '#d4d4d4',
     '--color-grey-500':       '#6b6b6b',
+    '--color-grey-600':       '#808080',
+    '--color-grey-700':       '#888888',
+    '--color-grey-800':       '#7a8599',
+    '--color-grey-300':       '#cccccc',
+    '--color-grey-150':       '#e8e8e8',
+    '--color-navy-800':       '#0f1a2e',
+    '--color-navy-700':       '#1e2d47',
+    '--color-slate-100':      '#e8edf5',
+    '--color-slate-200':      '#c5cdd9',
+    '--color-black-800':      '#141414',
+    '--color-black-700':      '#121212',
+    '--color-black-600':      '#2a2a2a',
+    '--color-black-500':      '#2b2b2b',
+    '--color-black-400':      '#1a1a1a',
+    '--color-white-alpha-87': 'rgba(255, 255, 255, 0.87)',
+    '--color-white-alpha-72': 'rgba(255, 255, 255, 0.72)',
+    '--color-white-alpha-45': 'rgba(255, 255, 255, 0.45)',
+    '--color-blue-400':       '#5ba3e6',
+    '--color-blue-401':       '#5da0e0',
+    '--color-blue-402':       '#6db3f2',
   },
   font: {
     '--font-playfair':  '"Playfair Display"',
@@ -51,15 +71,15 @@ const PRIMITIVES = {
 const TOKEN_DEFS = [
   { token: '--heading-font',   group: 'Typography', type: 'font' },
   { token: '--heading-size',   group: 'Typography', type: 'size' },
-  { token: '--heading-color',  group: 'Typography', type: 'color' },
   { token: '--heading-weight', group: 'Typography', type: 'size' },
   { token: '--body-font',      group: 'Typography', type: 'font' },
   { token: '--body-size',      group: 'Typography', type: 'size' },
-  { token: '--body-color',     group: 'Typography', type: 'color' },
   { token: '--ui-font',        group: 'Typography', type: 'font' },
   { token: '--label-size',     group: 'Typography', type: 'size' },
   { token: '--caption-size',   group: 'Typography', type: 'size' },
-  { token: '--caption-color',  group: 'Typography', type: 'color' },
+  { token: '--heading-color',  group: 'Color',      type: 'color' },
+  { token: '--body-color',     group: 'Color',      type: 'color' },
+  { token: '--caption-color',  group: 'Color',      type: 'color' },
   { token: '--accent-color',   group: 'Color',      type: 'color' },
   { token: '--surface-bg',     group: 'Color',      type: 'color' },
   { token: '--border-color',   group: 'Color',      type: 'color' },
@@ -90,6 +110,14 @@ const BRANDS = {
       '--space-tight':    '--spacing-md',
       '--space-loose':    '--spacing-xl',
       '--radius':         '--radius-sm',
+    },
+    dark: {
+      '--surface-bg':     '--color-navy-800',
+      '--border-color':   '--color-navy-700',
+      '--heading-color':  '--color-slate-100',
+      '--body-color':     '--color-slate-200',
+      '--caption-color':  '--color-grey-800',
+      '--accent-color':   '--color-blue-400',
     }
   },
   tabloid: {
@@ -112,6 +140,14 @@ const BRANDS = {
       '--space-tight':    '--spacing-sm',
       '--space-loose':    '--spacing-md',
       '--radius':         '--radius-md',
+    },
+    dark: {
+      '--surface-bg':     '--color-black-700',
+      '--border-color':   '--color-black-600',
+      '--heading-color':  '--color-white-alpha-87',
+      '--body-color':     '--color-white-alpha-72',
+      '--caption-color':  '--color-white-alpha-45',
+      '--accent-color':   '--color-white-alpha-45',
     }
   },
   financial: {
@@ -134,12 +170,27 @@ const BRANDS = {
       '--space-tight':    '--spacing-sm',
       '--space-loose':    '--spacing-sm',
       '--radius':         '--radius-sm',
+    },
+    dark: {
+      '--surface-bg':     '--color-black-800',
+      '--border-color':   '--color-black-500',
+      '--heading-color':  '--color-grey-150',
+      '--body-color':     '--color-grey-300',
+      '--caption-color':  '--color-grey-600',
+      '--accent-color':   '--color-blue-401',
     }
   }
 };
 
 let currentBrand = 'broadsheet';
+let currentMode = 'light';
 let overrides = {};
+
+function updateModeStylesheet() {
+  const modeLink = document.getElementById('mode-css');
+  modeLink.href = `css/brands/${currentBrand}-dark.css`;
+  modeLink.disabled = (currentMode === 'light');
+}
 
 // --- Brand switching ---
 document.getElementById('brand-switcher').addEventListener('click', (e) => {
@@ -148,6 +199,7 @@ document.getElementById('brand-switcher').addEventListener('click', (e) => {
 
   currentBrand = btn.dataset.brand;
   document.getElementById('brand-css').href = `css/brands/${currentBrand}.css`;
+  updateModeStylesheet();
 
   btn.closest('.switcher').querySelectorAll('.switcher__btn').forEach(b => {
     b.setAttribute('aria-pressed', b === btn);
@@ -155,19 +207,6 @@ document.getElementById('brand-switcher').addEventListener('click', (e) => {
 
   clearOverrides();
   renderTokenList();
-});
-
-// --- Mode switching ---
-document.getElementById('mode-switcher').addEventListener('click', (e) => {
-  const btn = e.target.closest('[data-mode]');
-  if (!btn) return;
-
-  const modeLink = document.getElementById('mode-css');
-  modeLink.disabled = (btn.dataset.mode === 'light');
-
-  btn.closest('.switcher').querySelectorAll('.switcher__btn').forEach(b => {
-    b.setAttribute('aria-pressed', b === btn);
-  });
 });
 
 // --- Layout switching ---
@@ -186,13 +225,16 @@ document.getElementById('layout-switcher').addEventListener('click', (e) => {
 function renderTokenList() {
   const list = document.getElementById('token-list');
   const brand = BRANDS[currentBrand];
+  const activePrimitives = (currentMode === 'dark' && brand.dark)
+    ? { ...brand.primitives, ...brand.dark }
+    : brand.primitives;
   list.innerHTML = '';
 
   let currentGroup = null;
 
   for (const def of TOKEN_DEFS) {
     const semantic = def.token;
-    const defaultPrimitive = brand.primitives[semantic];
+    const defaultPrimitive = activePrimitives[semantic];
     if (!defaultPrimitive) continue;
 
     // Group heading
@@ -202,6 +244,38 @@ function renderTokenList() {
       heading.className = 'token-group-heading';
       heading.textContent = currentGroup;
       list.appendChild(heading);
+
+      // Insert mode switcher at the top of the Color group
+      if (currentGroup === 'Color') {
+        const modeLi = document.createElement('li');
+        modeLi.className = 'token-row token-row--mode';
+        const modeSwitcher = document.createElement('div');
+        modeSwitcher.className = 'switcher';
+        modeSwitcher.id = 'mode-switcher';
+        ['light', 'dark'].forEach(mode => {
+          const btn = document.createElement('button');
+          btn.className = 'switcher__btn';
+          btn.dataset.mode = mode;
+          btn.setAttribute('aria-pressed', mode === currentMode);
+          btn.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+          modeSwitcher.appendChild(btn);
+        });
+        modeLi.appendChild(modeSwitcher);
+        list.appendChild(modeLi);
+
+        // Re-attach mode listener
+        modeSwitcher.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-mode]');
+          if (!btn) return;
+          currentMode = btn.dataset.mode;
+          updateModeStylesheet();
+          modeSwitcher.querySelectorAll('.switcher__btn').forEach(b => {
+            b.setAttribute('aria-pressed', b === btn);
+          });
+          clearOverrides();
+          renderTokenList();
+        });
+      }
     }
 
     const currentPrimitive = (semantic in overrides) ? overrides[semantic] : defaultPrimitive;

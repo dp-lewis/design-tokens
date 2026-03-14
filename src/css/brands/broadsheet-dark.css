@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Broadsheet Dark — Semantic Token Overrides
+   Dark palette with the Broadsheet brand identity preserved.
+   ========================================================================== */
+
+:root {
+  --surface-bg: var(--color-navy-800);
+  --border-color: var(--color-navy-700);
+  --heading-color: var(--color-slate-100);
+  --body-color: var(--color-slate-200);
+  --caption-color: var(--color-grey-800);
+  --accent-color: var(--color-blue-400);
+}

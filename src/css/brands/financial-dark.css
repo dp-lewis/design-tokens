@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Financial Dark — Semantic Token Overrides
+   Dark palette with the Financial brand identity preserved.
+   ========================================================================== */
+
+:root {
+  --surface-bg: var(--color-black-800);
+  --border-color: var(--color-black-500);
+  --heading-color: var(--color-grey-150);
+  --body-color: var(--color-grey-300);
+  --caption-color: var(--color-grey-600);
+  --accent-color: var(--color-blue-401);
+}
