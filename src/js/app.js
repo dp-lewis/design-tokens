@@ -188,7 +188,7 @@ let overrides = {};
 
 function updateModeStylesheet() {
   const modeLink = document.getElementById('mode-css');
-  modeLink.href = `css/brands/${currentBrand}-dark.css`;
+  modeLink.href = `src/css/brands/${currentBrand}-dark.css`;
   modeLink.disabled = (currentMode === 'light');
 }
 
@@ -198,7 +198,7 @@ document.getElementById('brand-switcher').addEventListener('click', (e) => {
   if (!btn) return;
 
   currentBrand = btn.dataset.brand;
-  document.getElementById('brand-css').href = `css/brands/${currentBrand}.css`;
+  document.getElementById('brand-css').href = `src/css/brands/${currentBrand}.css`;
   updateModeStylesheet();
 
   btn.closest('.switcher').querySelectorAll('.switcher__btn').forEach(b => {
@@ -214,7 +214,7 @@ document.getElementById('layout-switcher').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-layout]');
   if (!btn) return;
 
-  document.getElementById('layout-css').href = `css/layouts/${btn.dataset.layout}.css`;
+  document.getElementById('layout-css').href = `src/css/layouts/${btn.dataset.layout}.css`;
 
   btn.closest('.switcher').querySelectorAll('.switcher__btn').forEach(b => {
     b.setAttribute('aria-pressed', b === btn);
