@@ -14,8 +14,8 @@ css/
     panel.css             ← side panel styles
     page.css              ← page layout (tile centred, panel to the side)
   brands/
-    herald.css            ← Herald semantic token mappings
-    metro.css             ← Metro semantic token mappings
+    broadsheet.css        ← Broadsheet semantic token mappings
+    tabloid.css           ← Tabloid semantic token mappings
     financial.css         ← Financial semantic token mappings
   layouts/
     layout-stacked.css    ← image on top, text below (vertical stack)
@@ -34,13 +34,13 @@ Extracted from the real Nine brand sites. Demo uses generic names with Google Fo
 
 | Original Font | Google Fonts Substitute | Used By |
 |---|---|---|
-| Abril Titling Bold | **Abril Fatface** | Herald headlines |
-| PT Serif | **PT Serif** (exact match) | Herald body text |
+| Abril Titling Bold | **Abril Fatface** | Broadsheet headlines |
+| PT Serif | **PT Serif** (exact match) | Broadsheet body text |
 | Sueca HD Regular | **Lora** | Financial headlines + body |
-| Museo Sans | **Nunito** | Metro headlines |
-| Noto Sans | **Noto Sans** (exact match) | Metro body text |
+| Museo Sans | **Nunito** | Tabloid headlines |
+| Noto Sans | **Noto Sans** (exact match) | Tabloid body text |
 
-### Herald (← SMH)
+### Broadsheet (← SMH)
 
 | Token | Value |
 |---|---|
@@ -52,7 +52,7 @@ Extracted from the real Nine brand sites. Demo uses generic names with Google Fo
 | Spacing between text elements | 12px (default), 8px (compact) |
 | Spacing between image and text | 24px |
 
-### Metro (← nine.com.au)
+### Tabloid (← nine.com.au)
 
 | Token | Value |
 |---|---|
@@ -102,8 +102,8 @@ Each brand file sets `:root` semantic tokens that reference primitives. Semantic
 
 Three brand files using generic names, each inspired by a real Nine brand:
 
-- **Herald** ← inspired by SMH (traditional newspaper, serif headlines, blue accents)
-- **Metro** ← inspired by nine.com.au (modern, sans-serif, muted accents)
+- **Broadsheet** ← inspired by SMH (traditional newspaper, serif headlines, blue accents)
+- **Tabloid** ← inspired by nine.com.au (modern, sans-serif, muted accents)
 - **Financial** ← inspired by AFR (premium, corporate, dense typography)
 
 Each maps semantic tokens to different primitives to produce distinct looks.
@@ -156,7 +156,7 @@ Single HTML file containing:
   - `.story-tile__summary` (1-2 sentence standfirst)
   - `.story-tile__byline` (author + timestamp)
 - The side panel markup:
-  - Brand switcher (Herald / Metro / Financial)
+  - Brand switcher (Broadsheet / Tabloid / Financial)
   - Layout switcher (Stacked / Side / Overlay)
   - Token inspector list (populated by JS)
   - Reset button
@@ -188,7 +188,7 @@ Single HTML file containing:
 
 Open `index.html` directly in a browser (no server needed). Confirm:
 
-- Story tile renders with Herald tokens by default
+- Story tile renders with Broadsheet tokens by default
 - Switching brand changes tile appearance, panel updates
 - Switching layout rearranges tile, token values unchanged
 - Editing a token value in the panel updates the tile in real time

@@ -108,8 +108,8 @@ When you switch brand tokens, the fields repopulate with that brand's values. Wh
 css/
   primitives.css       ← shared primitive tokens (colors, spacing, type)
   brands/
-    herald.css         ← Herald semantic tokens (reference primitives)
-    metro.css          ← Metro semantic tokens
+    broadsheet.css     ← Broadsheet semantic tokens (reference primitives)
+    tabloid.css        ← Tabloid semantic tokens
     financial.css      ← Financial semantic tokens
   layouts/
     layout-a.css       ← CSS Grid layout variant A
