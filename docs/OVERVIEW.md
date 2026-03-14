@@ -105,19 +105,21 @@ When you switch brand tokens, the fields repopulate with that brand's values. Wh
 ### Architecture
 
 ```
-css/
-  primitives.css       ← shared primitive tokens (colors, spacing, type)
-  brands/
-    broadsheet.css     ← Broadsheet semantic tokens (reference primitives)
-    tabloid.css        ← Tabloid semantic tokens
-    financial.css      ← Financial semantic tokens
-  layouts/
-    layout-a.css       ← CSS Grid layout variant A
-    layout-b.css       ← CSS Grid layout variant B
-index.html             ← story tile + side panel, no build step needed
+package.json               ← npm scripts (dev server)
+src/
+  css/
+    primitives.css         ← shared primitive tokens (colors, spacing, type)
+    brands/
+      broadsheet.css       ← Broadsheet semantic tokens (reference primitives)
+      tabloid.css          ← Tabloid semantic tokens
+      financial.css        ← Financial semantic tokens
+    layouts/
+      layout-a.css         ← CSS Grid layout variant A
+      layout-b.css         ← CSS Grid layout variant B
+  index.html               ← story tile + side panel
 ```
 
-No build tools, no preprocessors — just CSS files loaded in the browser. The primitives stylesheet is always loaded; the brand and layout stylesheets are swapped by the side panel controls via JavaScript.
+No build tools, no preprocessors — just CSS files served by a local dev server via `npm start`. The primitives stylesheet is always loaded; the brand and layout stylesheets are swapped by the side panel controls via JavaScript.
 
 ### Token layers in CSS
 
@@ -134,7 +136,7 @@ Primitive tokens define the raw palette in `:root`. Brand files then map semanti
   --font-sans: Arial, sans-serif;
 }
 
-/* css/brands/herald.css */
+/* css/brands/broadsheet.css */
 :root {
   --tile-headline-color: var(--color-blue-800);
   --tile-headline-font: var(--font-serif);

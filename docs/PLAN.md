@@ -7,24 +7,35 @@ Build an interactive demo page showing a single story tile component styled by d
 ## File Structure
 
 ```
-css/
-  primitives.css          ← shared primitive tokens
-  components/
-    tile.css              ← story tile component styles (uses semantic tokens)
-    panel.css             ← side panel styles
-    page.css              ← page layout (tile centred, panel to the side)
-  brands/
-    broadsheet.css        ← Broadsheet semantic token mappings
-    tabloid.css           ← Tabloid semantic token mappings
-    financial.css         ← Financial semantic token mappings
-  layouts/
-    layout-stacked.css    ← image on top, text below (vertical stack)
-    layout-side.css       ← image to the left, text to the right
-    layout-overlay.css    ← image full-bleed, text overlaid at bottom
-js/
-  app.js                  ← wires up brand/layout switching, token editing, panel rendering
-index.html                ← single page: story tile + side panel
+package.json              ← npm scripts (dev server, etc.)
+.gitignore                ← node_modules
+src/
+  css/
+    primitives.css        ← shared primitive tokens
+    components/
+      tile.css            ← story tile component styles (uses semantic tokens)
+      panel.css           ← side panel styles
+      page.css            ← page layout (tile centred, panel to the side)
+    brands/
+      broadsheet.css      ← Broadsheet semantic token mappings
+      tabloid.css         ← Tabloid semantic token mappings
+      financial.css       ← Financial semantic token mappings
+    layouts/
+      layout-stacked.css  ← image on top, text below (vertical stack)
+      layout-side.css     ← image to the left, text to the right
+      layout-overlay.css  ← image full-bleed, text overlaid at bottom
+  js/
+    app.js                ← wires up brand/layout switching, token editing, panel rendering
+  index.html              ← single page: story tile + side panel
 ```
+
+### Dev Server
+
+`package.json` defines:
+
+- `"start"` — runs a static file server (e.g. `serve` or `lite-server`) serving the `src/` directory
+- No build step, no bundler — just static files served over HTTP
+- This avoids file:// CORS issues and reflects how assets are served in production
 
 ## Brand Token Reference
 
@@ -186,7 +197,7 @@ Single HTML file containing:
 
 ## Verification
 
-Open `index.html` directly in a browser (no server needed). Confirm:
+Run `npm start` and open the local URL in a browser. Confirm:
 
 - Story tile renders with Broadsheet tokens by default
 - Switching brand changes tile appearance, panel updates
