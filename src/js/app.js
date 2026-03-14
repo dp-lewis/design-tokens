@@ -157,6 +157,19 @@ document.getElementById('brand-switcher').addEventListener('click', (e) => {
   renderTokenList();
 });
 
+// --- Mode switching ---
+document.getElementById('mode-switcher').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-mode]');
+  if (!btn) return;
+
+  const modeLink = document.getElementById('mode-css');
+  modeLink.disabled = (btn.dataset.mode === 'light');
+
+  btn.closest('.switcher').querySelectorAll('.switcher__btn').forEach(b => {
+    b.setAttribute('aria-pressed', b === btn);
+  });
+});
+
 // --- Layout switching ---
 document.getElementById('layout-switcher').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-layout]');

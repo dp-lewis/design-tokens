@@ -1,0 +1,14 @@
+/* ==========================================================================
+   Dark Mode — Semantic Token Overrides
+   Overrides color-related semantic tokens only.
+   Typography, spacing, and layout remain unchanged.
+   ========================================================================== */
+
+:root {
+  --surface-bg: #1a1a1a;
+  --border-color: #333333;
+  --heading-color: #f0f0f0;
+  --body-color: #d4d4d4;
+  --caption-color: #888888;
+  --accent-color: #6db3f2;
+}

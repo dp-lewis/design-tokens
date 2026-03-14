@@ -16,6 +16,9 @@
   <!-- Brand tokens (swappable) -->
   <link rel="stylesheet" href="css/brands/broadsheet.css" id="brand-css">
 
+  <!-- Mode overrides (loaded after brand so it wins) -->
+  <link rel="stylesheet" href="css/modes/dark.css" id="mode-css" disabled>
+
   <!-- Component styles (always loaded) -->
   <link rel="stylesheet" href="css/components/tile.css">
   <link rel="stylesheet" href="css/components/page.css">
@@ -59,6 +62,14 @@
             <button class="switcher__btn" aria-pressed="true" data-brand="broadsheet">Broadsheet</button>
             <button class="switcher__btn" aria-pressed="false" data-brand="tabloid">Tabloid</button>
             <button class="switcher__btn" aria-pressed="false" data-brand="financial">Financial</button>
+          </div>
+        </div>
+
+        <div class="panel__section">
+          <h3 class="panel__heading">Mode</h3>
+          <div class="switcher" id="mode-switcher">
+            <button class="switcher__btn" aria-pressed="true" data-mode="light">Light</button>
+            <button class="switcher__btn" aria-pressed="false" data-mode="dark">Dark</button>
           </div>
         </div>
 
