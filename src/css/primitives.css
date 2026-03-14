@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Primitive Tokens
+   Raw design values — the shared palette that all brands draw from.
+   No opinions about usage; semantic tokens assign meaning.
+   ========================================================================== */
+
+:root {
+  /* --- Colors --- */
+  --color-navy-900: #0a1633;
+  --color-black-900: #111111;
+  --color-black-alpha-81: rgba(0, 0, 0, 0.81);
+  --color-black-alpha-58: rgba(0, 0, 0, 0.58);
+  --color-blue-600: #096dd2;
+  --color-blue-601: #0f6cc9;
+  --color-white: #ffffff;
+  --color-grey-50: #f5f5f5;
+  --color-grey-100: #e8e8e8;
+  --color-grey-200: #d4d4d4;
+  --color-grey-500: #6b6b6b;
+
+  /* --- Typography: Font Families --- */
+  --font-playfair: "Playfair Display", "Book Antiqua", Palatino, Georgia, serif;
+  --font-pt-sans: "PT Sans", Arial, Helvetica, sans-serif;
+  --font-pt-serif: "PT Serif", Georgia, Times, "Times New Roman", serif;
+  --font-lora: "Lora", Times, serif;
+  --font-nunito: "Nunito", sans-serif;
+  --font-noto-sans: "Noto Sans", sans-serif;
+
+  /* --- Typography: Sizes --- */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xl-2: 1.875rem;
+  --font-size-2xl: 2rem;
+
+  /* --- Typography: Weights --- */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* --- Typography: Line Heights --- */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  /* --- Spacing --- */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  /* --- Borders & Radii --- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

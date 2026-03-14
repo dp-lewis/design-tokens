@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Broadsheet — Semantic Tokens
+   Traditional newspaper aesthetic. Serif headlines, blue accents.
+   ========================================================================== */
+
+:root {
+  /* --- Tile Container --- */
+  --tile-bg: var(--color-white);
+  --tile-padding: var(--spacing-lg);
+  --tile-radius: var(--radius-sm);
+  --tile-border-color: var(--color-grey-200);
+
+  /* --- Headline --- */
+  --tile-headline-font: var(--font-playfair);
+  --tile-headline-size: var(--font-size-xl);
+  --tile-headline-color: var(--color-navy-900);
+  --tile-headline-weight: var(--font-weight-bold);
+
+  /* --- Kicker --- */
+  --tile-kicker-font: var(--font-pt-sans);
+  --tile-kicker-size: var(--font-size-sm);
+  --tile-kicker-color: var(--color-blue-600);
+
+  /* --- Summary --- */
+  --tile-summary-font: var(--font-pt-serif);
+  --tile-summary-size: var(--font-size-md);
+  --tile-summary-color: var(--color-navy-900);
+
+  /* --- Byline --- */
+  --tile-byline-font: var(--font-pt-sans);
+  --tile-byline-size: var(--font-size-xs);
+  --tile-byline-color: var(--color-grey-500);
+
+  /* --- Accent --- */
+  --tile-accent-color: var(--color-blue-600);
+
+  /* --- Image --- */
+  --tile-image-radius: var(--radius-sm);
+
+  /* --- Spacing --- */
+  --tile-text-gap: var(--spacing-md);
+  --tile-content-gap: var(--spacing-xl);
+
+  /* --- Element Order --- */
+  --tile-kicker-order: 1;
+  --tile-headline-order: 2;
+  --tile-image-order: 3;
+  --tile-summary-order: 4;
+  --tile-byline-order: 5;
+}

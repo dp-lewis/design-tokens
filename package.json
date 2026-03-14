@@ -1,0 +1,11 @@
+{
+  "name": "design-tokens-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "lite-server -c bs-config.json"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}

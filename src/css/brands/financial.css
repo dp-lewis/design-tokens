@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Financial — Semantic Tokens
+   Premium, corporate, dense typography. Near-black text, blue accents.
+   ========================================================================== */
+
+:root {
+  /* --- Tile Container --- */
+  --tile-bg: var(--color-white);
+  --tile-padding: var(--spacing-lg);
+  --tile-radius: var(--radius-sm);
+  --tile-border-color: var(--color-grey-200);
+
+  /* --- Headline --- */
+  --tile-headline-font: var(--font-lora);
+  --tile-headline-size: var(--font-size-xl-2);
+  --tile-headline-color: var(--color-black-900);
+  --tile-headline-weight: var(--font-weight-bold);
+
+  /* --- Kicker --- */
+  --tile-kicker-font: var(--font-lora);
+  --tile-kicker-size: var(--font-size-xs);
+  --tile-kicker-color: var(--color-blue-601);
+
+  /* --- Summary --- */
+  --tile-summary-font: var(--font-lora);
+  --tile-summary-size: var(--font-size-md);
+  --tile-summary-color: var(--color-black-900);
+
+  /* --- Byline --- */
+  --tile-byline-font: var(--font-lora);
+  --tile-byline-size: var(--font-size-xs);
+  --tile-byline-color: var(--color-grey-500);
+
+  /* --- Accent --- */
+  --tile-accent-color: var(--color-blue-601);
+
+  /* --- Image --- */
+  --tile-image-radius: var(--radius-sm);
+
+  /* --- Spacing --- */
+  --tile-text-gap: var(--spacing-sm);
+  --tile-content-gap: var(--spacing-sm);
+
+  /* --- Element Order --- */
+  --tile-kicker-order: 1;
+  --tile-headline-order: 2;
+  --tile-image-order: 3;
+  --tile-summary-order: 4;
+  --tile-byline-order: 5;
+}

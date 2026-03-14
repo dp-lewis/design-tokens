@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Tokens Demo</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Lora:wght@400;700&family=Nunito:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Primitive tokens (always loaded) -->
+  <link rel="stylesheet" href="css/primitives.css">
+
+  <!-- Brand tokens (swappable) -->
+  <link rel="stylesheet" href="css/brands/broadsheet.css" id="brand-css">
+
+  <!-- Component styles (always loaded) -->
+  <link rel="stylesheet" href="css/components/tile.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      min-height: 100vh;
+      font-family: system-ui, sans-serif;
+    }
+
+    .brand-switcher {
+      display: flex;
+      gap: 0;
+    }
+
+    .brand-switcher__btn {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid #ccc;
+      background: #fff;
+      font-family: system-ui, sans-serif;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .brand-switcher__btn:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+
+    .brand-switcher__btn:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+
+    .brand-switcher__btn + .brand-switcher__btn {
+      border-left: none;
+    }
+
+    .brand-switcher__btn[aria-pressed="true"] {
+      background: #333;
+      color: #fff;
+      border-color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="brand-switcher">
+    <button class="brand-switcher__btn" aria-pressed="true" data-brand="broadsheet">Broadsheet</button>
+    <button class="brand-switcher__btn" aria-pressed="false" data-brand="tabloid">Tabloid</button>
+    <button class="brand-switcher__btn" aria-pressed="false" data-brand="financial">Financial</button>
+  </div>
+
+  <article class="story-tile">
+    <p class="story-tile__kicker">Politics</p>
+    <img
+      class="story-tile__image"
+      src="https://picsum.photos/seed/tokens/800/533"
+      alt="Placeholder image"
+    >
+    <h2 class="story-tile__headline">Government Announces Sweeping Changes to National Infrastructure Plan</h2>
+    <p class="story-tile__summary">The federal government has unveiled a revised infrastructure strategy that prioritises regional transport links and renewable energy projects over previously planned urban motorway expansions.</p>
+    <p class="story-tile__byline">By Jane Mitchell · March 14, 2026</p>
+  </article>
+
+  <script>
+    document.querySelector('.brand-switcher').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-brand]');
+      if (!btn) return;
+
+      document.getElementById('brand-css').href = `css/brands/${btn.dataset.brand}.css`;
+
+      document.querySelectorAll('.brand-switcher__btn').forEach(b => {
+        b.setAttribute('aria-pressed', b === btn);
+      });
+    });
+  </script>
+</body>
+</html>

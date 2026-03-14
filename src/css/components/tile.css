@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Story Tile Component
+   Styled entirely via semantic tokens — no hard-coded values.
+   ========================================================================== */
+
+.story-tile {
+  background: var(--tile-bg);
+  padding: var(--tile-padding);
+  border-radius: var(--tile-radius);
+  border: 1px solid var(--tile-border-color);
+  container-type: inline-size;
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tile-text-gap);
+}
+
+.story-tile__image {
+  border-radius: var(--tile-image-radius);
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+  order: var(--tile-image-order);
+}
+
+.story-tile__kicker {
+  order: var(--tile-kicker-order);
+  font-family: var(--tile-kicker-font);
+  font-size: var(--tile-kicker-size);
+  color: var(--tile-kicker-color);
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.story-tile__headline {
+  font-family: var(--tile-headline-font);
+  font-size: var(--tile-headline-size);
+  font-weight: var(--tile-headline-weight);
+  color: var(--tile-headline-color);
+  line-height: var(--line-height-tight);
+  margin: 0;
+  order: var(--tile-headline-order);
+}
+
+.story-tile__summary {
+  font-family: var(--tile-summary-font);
+  font-size: var(--tile-summary-size);
+  color: var(--tile-summary-color);
+  line-height: var(--line-height-normal);
+  margin: 0;
+  order: var(--tile-summary-order);
+}
+
+.story-tile__byline {
+  font-family: var(--tile-byline-font);
+  font-size: var(--tile-byline-size);
+  color: var(--tile-byline-color);
+  margin: 0;
+  order: var(--tile-byline-order);
+}
