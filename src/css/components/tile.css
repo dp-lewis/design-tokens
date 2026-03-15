@@ -22,11 +22,9 @@
   aspect-ratio: 3 / 2;
   object-fit: cover;
   display: block;
-  order: var(--tile-image-order);
 }
 
 .story-tile__kicker {
-  order: var(--tile-kicker-order);
   font-family: var(--ui-font);
   font-size: var(--label-size);
   color: var(--accent-color);
@@ -42,7 +40,6 @@
   color: var(--heading-color);
   line-height: var(--line-height-tight);
   margin: 0;
-  order: var(--tile-headline-order);
 }
 
 .story-tile__summary {
@@ -51,7 +48,6 @@
   color: var(--body-color);
   line-height: var(--line-height-normal);
   margin: 0;
-  order: var(--tile-summary-order);
 }
 
 .story-tile__byline {
@@ -59,5 +55,4 @@
   font-size: var(--caption-size);
   color: var(--caption-color);
   margin: 0;
-  order: var(--tile-byline-order);
 }

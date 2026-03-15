@@ -29,11 +29,11 @@
 
   /* --- Shape --- */
   --radius: var(--radius-md);
-
-  /* --- Element Order --- */
-  --tile-image-order: 1;
-  --tile-kicker-order: 2;
-  --tile-headline-order: 3;
-  --tile-summary-order: 4;
-  --tile-byline-order: 5;
 }
+
+/* Brand-specific element ordering (not tokens) */
+.story-tile__image    { order: 1; }
+.story-tile__kicker   { order: 2; }
+.story-tile__headline { order: 3; }
+.story-tile__summary  { order: 4; }
+.story-tile__byline   { order: 5; }
