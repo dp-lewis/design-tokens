@@ -35,9 +35,40 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+    .page-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 2rem 0;
+    }
+    .page-header__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #222;
+      margin: 0 0 0.5rem;
+    }
+    .page-header__desc {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #555;
+      margin: 0;
+      max-width: 680px;
+    }
+    .page-header__desc strong {
+      color: #333;
+    }
+    @media (max-width: 959px) {
+      .page-header {
+        padding: 1rem 1rem 0;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <header class="page-header">
+    <h1 class="page-header__title">Design Tokens</h1>
+    <p class="page-header__desc">One story tile, three brands, three layouts — all from the same HTML. Switch the <strong>brand</strong> to swap semantic tokens (colours, typography, spacing). Switch the <strong>layout</strong> to rearrange elements with CSS Grid. The two controls are independent: tokens control appearance, layout classes control structure.</p>
+  </header>
 
   <div class="page">
     <main class="page__main">

@@ -1,14 +1,15 @@
 /* ==========================================================================
    Page Layout
    Tile centred in main area, side panel on the right.
+   Stacks vertically on smaller screens.
    ========================================================================== */
 
 .page {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
@@ -16,12 +17,26 @@
   display: flex;
   justify-content: center;
   align-items: start;
-  padding-top: 2rem;
 }
 
 .page__panel {
-  position: sticky;
-  top: 2rem;
-  max-height: calc(100vh - 4rem);
   overflow-y: auto;
+}
+
+@media (min-width: 960px) {
+  .page {
+    grid-template-columns: 1fr 360px;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .page__main {
+    padding-top: 2rem;
+  }
+
+  .page__panel {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+  }
 }
