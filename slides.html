@@ -175,17 +175,17 @@
       <h2>Same component, different brands</h2>
       <p>A story tile appears on every brand's homepage.<br>Each brand wants its own colours, typography, and spacing.</p>
       <div class="fragment highlight-box">
-        Common approach: duplicate the component per brand, or scatter overrides across stylesheets.
+        Common approach: maintain separate designs per brand, or copy-paste values and hope they stay in sync.
       </div>
     </section>
 
     <section>
       <h2>What goes wrong</h2>
       <ul>
-        <li>Values drift between brands — "is that <code>#0a1633</code> or <code>#0a1733</code>?"</li>
-        <li>Changing a colour means find-and-replace across files</li>
-        <li>Designers and developers have no shared vocabulary</li>
-        <li>Dark mode multiplies the problem</li>
+        <li>You update the brand blue in one place — but it doesn't change everywhere</li>
+        <li>Design specs say 24px spacing, but what shipped is 16px</li>
+        <li>Designers and developers describe the same decision with different words</li>
+        <li>Add dark mode and you're maintaining twice as many values</li>
       </ul>
     </section>
   </section>
@@ -202,7 +202,7 @@
     <!-- Layer 1: Primitive -->
     <section>
       <h2>Primitive tokens</h2>
-      <p>Raw values with no opinion about where they're used.<br>They're the <strong>palette</strong> — shared across every brand.</p>
+      <p>Think of primitives as paint swatches on a wall — they exist before<br>anyone decides which room they go in. They're the <strong>raw palette</strong>, shared across every brand.</p>
       <div class="token-chain" style="justify-content: center;">
         <div class="token-chain__tier token-chain__tier--primitive token-chain__tier--wide">
           <span class="token-chain__label">Primitive</span>
@@ -224,7 +224,7 @@
     <!-- Layer 2: Semantic -->
     <section>
       <h2>Semantic tokens</h2>
-      <p>Describe <strong>what a value is for</strong>, not what it is.<br>Each brand maps these to different primitives.</p>
+      <p>Every brand uses <code>heading-font</code> — they just point it at a different typeface.<br><strong>Same token name, different value.</strong> That's where brand identity lives.</p>
       <div class="token-chain" style="justify-content: center;">
         <div class="token-chain__tier token-chain__tier--semantic token-chain__tier--wide">
           <span class="token-chain__label">Semantic</span>
@@ -238,14 +238,14 @@
         </div>
       </div>
       <div class="fragment highlight-box">
-        This is where brand identity lives. A broadsheet points <code>heading-font</code> at a serif;<br>a tabloid points it at a sans-serif. Same token name, different value.
+        Semantic tokens describe <strong>what a value is for</strong>, not what it is. A broadsheet points <code>heading-font</code> at a serif; a tabloid points it at a sans-serif.
       </div>
     </section>
 
     <!-- Layer 3: Component -->
     <section>
       <h2>Component tokens</h2>
-      <p>Scoped to a specific component.<br>They reference semantic tokens, adding one more layer of meaning.</p>
+      <p>Why not use semantic tokens directly? Because a button and a story tile might both need a "colour" — but not the <em>same</em> colour. Component tokens let each component make its own choices from the shared palette.</p>
       <div class="token-chain" style="justify-content: center;">
         <div class="token-chain__tier token-chain__tier--component token-chain__tier--wide">
           <span class="token-chain__label">Component</span>
@@ -259,7 +259,7 @@
         </div>
       </div>
       <div class="fragment highlight-box">
-        A button, a card, a nav bar — each can have its own token set,<br>all pointing back to the same semantic layer.
+        A button, a card, a nav bar — each has its own token set, all pointing back to the same semantic layer.
       </div>
     </section>
 
@@ -307,7 +307,7 @@
         </div>
       </div>
       <div class="fragment highlight-box">
-        Change a primitive — it ripples through semantic and component tokens automatically.
+        Change a semantic mapping — it ripples through to every component that references it.
       </div>
     </section>
 
@@ -357,8 +357,8 @@
        ============================================================ -->
   <section>
     <section>
-      <h2>Live demo</h2>
-      <p class="muted">Switching to the interactive demo…</p>
+      <h2>Let's see it in action</h2>
+      <p>Everything we've talked about comes together in a single component — a <strong>story tile</strong>.<br>Same HTML, styled entirely by tokens. Let's switch brands, layouts, and edit values live.</p>
       <p><a href="demo.html" target="_blank">Open demo →</a></p>
     </section>
 
@@ -382,27 +382,27 @@
     </section>
 
     <section>
-      <h2>The same idea, different tools</h2>
+      <h2>The same layers, different tools</h2>
       <div class="two-col">
         <div>
           <h3>In Figma</h3>
           <ul>
-            <li>Variables = primitive tokens</li>
-            <li>Modes = brand overrides</li>
-            <li>Auto layout = structure</li>
+            <li>Variables hold primitives <em>and</em> semantics</li>
+            <li>Modes switch between brands — and between light/dark</li>
+            <li>Auto layout controls structure</li>
           </ul>
         </div>
         <div>
           <h3>In code</h3>
           <ul>
-            <li>CSS custom properties = primitive tokens</li>
-            <li>Brand stylesheets = semantic mappings</li>
-            <li>CSS Grid / layout classes = structure</li>
+            <li>CSS custom properties define each layer</li>
+            <li>Brand stylesheets swap the semantic mappings</li>
+            <li>CSS Grid / layout classes control structure</li>
           </ul>
         </div>
       </div>
       <div class="fragment highlight-box">
-        Designers and developers share the same token names, the same layers, the same mental model.
+        The concepts are identical — only the tool changes. A token called <code>heading-color</code> means the same thing in a Figma variable as it does in a CSS file.
       </div>
     </section>
 
@@ -412,6 +412,9 @@
          and a developer writes <code>var(--heading-color)</code><br>
          they mean the same thing.</p>
       <p class="fragment">Tokens bridge the gap between design and code.</p>
+      <div class="fragment highlight-box">
+        We've prepared a Figma document that walks through this in detail — variables, modes, and how they map to what you've seen in the demo.
+      </div>
     </section>
   </section>
 
