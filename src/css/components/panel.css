@@ -156,6 +156,7 @@
   cursor: pointer;
   color: #666;
   transition: background 0.15s;
+  margin-bottom: 0.75rem;
 }
 
 .panel__reset:hover {

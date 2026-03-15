@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Tokens — Talk</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+
+  <style>
+    :root {
+      --r-heading-font: system-ui, sans-serif;
+      --r-main-font: system-ui, sans-serif;
+      --r-heading-color: #1a1a1a;
+      --r-main-color: #333;
+      --r-link-color: #096dd2;
+    }
+    .reveal h1, .reveal h2, .reveal h3 {
+      text-transform: none;
+      letter-spacing: -0.01em;
+    }
+    .reveal h1 { font-size: 2.4em; }
+    .reveal h2 { font-size: 1.6em; }
+    .reveal h3 { font-size: 1.1em; color: #096dd2; font-weight: 600; }
+    .reveal p, .reveal li { font-size: 0.75em; line-height: 1.6; }
+    .reveal ul { list-style: none; padding: 0; }
+    .reveal ul li::before { content: "→ "; color: #096dd2; font-weight: 600; }
+    .reveal code {
+      font-family: "SF Mono", "Fira Code", monospace;
+      background: #f5f5f5;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      font-size: 0.85em;
+      color: #c7254e;
+    }
+    .reveal pre {
+      width: 90%;
+      font-size: 0.55em;
+      box-shadow: none;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+    }
+    .reveal pre code {
+      background: #fafafa;
+      color: #333;
+      padding: 1em;
+      line-height: 1.5;
+    }
+    .brand-table {
+      font-size: 0.6em;
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+    .brand-table th, .brand-table td {
+      padding: 0.5em 1em;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+    }
+    .brand-table th {
+      font-weight: 700;
+      color: #096dd2;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2em;
+      text-align: left;
+    }
+    .highlight-box {
+      background: #f0f7ff;
+      border-left: 4px solid #096dd2;
+      padding: 0.75em 1em;
+      font-size: 0.7em;
+      border-radius: 0 4px 4px 0;
+      margin: 0.5em 0;
+      text-align: left;
+    }
+    .muted { color: #888; font-size: 0.65em; }
+    .big-number { font-size: 3em; font-weight: 700; color: #096dd2; }
+    .reveal .slide-number { font-size: 0.5em; }
+    /* Token chain diagram */
+    .token-chain {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+    }
+    .token-chain__tier {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+      width: 280px;
+    }
+    .token-chain__tier--wide {
+      width: 520px;
+    }
+    .token-chain__label {
+      font-size: 0.65em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.2em;
+    }
+    .token-chain__box {
+      width: 100%;
+      border-radius: 6px;
+      padding: 0.5em 0.7em;
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 0.5em;
+      line-height: 1.7;
+      text-align: left;
+      box-sizing: border-box;
+    }
+    .token-chain__tier--primitive .token-chain__label { color: #0a4a7a; }
+    .token-chain__tier--primitive .token-chain__box {
+      background: #e8f4fd;
+      border: 2px solid #b3d9f2;
+      color: #0a4a7a;
+    }
+    .token-chain__tier--semantic .token-chain__label { color: #1a6b1a; }
+    .token-chain__tier--semantic .token-chain__box {
+      background: #e8f8e8;
+      border: 2px solid #b3e0b3;
+      color: #1a6b1a;
+    }
+    .token-chain__tier--component .token-chain__label { color: #5a1a7a; }
+    .token-chain__tier--component .token-chain__box {
+      background: #f3e8fd;
+      border: 2px solid #d4b3f0;
+      color: #5a1a7a;
+    }
+    .token-chain__arrow {
+      display: flex;
+      align-items: center;
+      padding-top: 1.8em;
+      font-size: 1.8em;
+      color: #bbb;
+      flex-shrink: 0;
+      width: 50px;
+      justify-content: center;
+    }
+    .token-chain__note {
+      font-size: 0.5em;
+      color: #888;
+      margin-top: 0.3em;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+  <!-- ============================================================
+       TITLE
+       ============================================================ -->
+  <section>
+    <h1>Design Tokens</h1>
+    <h3>One component, many brands — zero duplication</h3>
+    <p class="muted">Interactive demo &amp; discussion · 15 min</p>
+  </section>
+
+  <!-- ============================================================
+       THE PROBLEM
+       ============================================================ -->
+  <section>
+    <section>
+      <h2>The problem</h2>
+    </section>
+
+    <section>
+      <h2>Same component, different brands</h2>
+      <p>A story tile appears on every brand's homepage.<br>Each brand wants its own colours, typography, and spacing.</p>
+      <div class="fragment highlight-box">
+        Common approach: duplicate the component per brand, or scatter overrides across stylesheets.
+      </div>
+    </section>
+
+    <section>
+      <h2>What goes wrong</h2>
+      <ul>
+        <li>Values drift between brands — "is that <code>#0a1633</code> or <code>#0a1733</code>?"</li>
+        <li>Changing a colour means find-and-replace across files</li>
+        <li>Designers and developers have no shared vocabulary</li>
+        <li>Dark mode multiplies the problem</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- ============================================================
+       WHAT ARE TOKENS
+       ============================================================ -->
+  <section>
+    <section>
+      <h2>What are design tokens?</h2>
+      <p>Named design decisions stored as data — not hard-coded values,<br>but meaningful names that everyone can share.</p>
+    </section>
+
+    <!-- Layer 1: Primitive -->
+    <section>
+      <h2>Primitive tokens</h2>
+      <p>Raw values with no opinion about where they're used.<br>They're the <strong>palette</strong> — shared across every brand.</p>
+      <div class="token-chain" style="justify-content: center;">
+        <div class="token-chain__tier token-chain__tier--primitive token-chain__tier--wide">
+          <span class="token-chain__label">Primitive</span>
+          <div class="token-chain__box">
+            color-navy-900 &nbsp;→&nbsp; <strong>#0a1633</strong><br>
+            color-blue-600 &nbsp;→&nbsp; <strong>#096dd2</strong><br>
+            font-playfair &nbsp;→&nbsp; <strong>"Playfair Display"</strong><br>
+            font-nunito &nbsp;→&nbsp; <strong>"Nunito"</strong><br>
+            spacing-sm &nbsp;→&nbsp; <strong>8px</strong><br>
+            spacing-xl &nbsp;→&nbsp; <strong>24px</strong>
+          </div>
+        </div>
+      </div>
+      <div class="fragment highlight-box">
+        These never change between brands. Every brand draws from the same set.
+      </div>
+    </section>
+
+    <!-- Layer 2: Semantic -->
+    <section>
+      <h2>Semantic tokens</h2>
+      <p>Describe <strong>what a value is for</strong>, not what it is.<br>Each brand maps these to different primitives.</p>
+      <div class="token-chain" style="justify-content: center;">
+        <div class="token-chain__tier token-chain__tier--semantic token-chain__tier--wide">
+          <span class="token-chain__label">Semantic</span>
+          <div class="token-chain__box">
+            heading-color &nbsp;→&nbsp; <strong>color-navy-900</strong><br>
+            accent-color &nbsp;→&nbsp; <strong>color-blue-600</strong><br>
+            heading-font &nbsp;→&nbsp; <strong>font-playfair</strong><br>
+            body-font &nbsp;→&nbsp; <strong>font-nunito</strong><br>
+            space-loose &nbsp;→&nbsp; <strong>spacing-xl</strong>
+          </div>
+        </div>
+      </div>
+      <div class="fragment highlight-box">
+        This is where brand identity lives. A broadsheet points <code>heading-font</code> at a serif;<br>a tabloid points it at a sans-serif. Same token name, different value.
+      </div>
+    </section>
+
+    <!-- Layer 3: Component -->
+    <section>
+      <h2>Component tokens</h2>
+      <p>Scoped to a specific component.<br>They reference semantic tokens, adding one more layer of meaning.</p>
+      <div class="token-chain" style="justify-content: center;">
+        <div class="token-chain__tier token-chain__tier--component token-chain__tier--wide">
+          <span class="token-chain__label">Component</span>
+          <div class="token-chain__box">
+            tile-headline-color &nbsp;→&nbsp; <strong>heading-color</strong><br>
+            tile-accent-color &nbsp;→&nbsp; <strong>accent-color</strong><br>
+            tile-headline-font &nbsp;→&nbsp; <strong>heading-font</strong><br>
+            tile-body-font &nbsp;→&nbsp; <strong>body-font</strong><br>
+            tile-padding &nbsp;→&nbsp; <strong>space-loose</strong>
+          </div>
+        </div>
+      </div>
+      <div class="fragment highlight-box">
+        A button, a card, a nav bar — each can have its own token set,<br>all pointing back to the same semantic layer.
+      </div>
+    </section>
+
+    <!-- The full chain -->
+    <section>
+      <h2>How they connect</h2>
+      <div class="token-chain">
+        <div class="token-chain__tier token-chain__tier--primitive">
+          <span class="token-chain__label">Primitive</span>
+          <div class="token-chain__box">
+            color-navy-900<br>
+            <strong>#0a1633</strong><br><br>
+            color-blue-600<br>
+            <strong>#096dd2</strong><br><br>
+            spacing-xl<br>
+            <strong>24px</strong>
+          </div>
+          <span class="token-chain__note">Raw values — the palette</span>
+        </div>
+        <div class="token-chain__arrow">→</div>
+        <div class="token-chain__tier token-chain__tier--semantic">
+          <span class="token-chain__label">Semantic</span>
+          <div class="token-chain__box">
+            heading-color<br>
+            <strong>→ color-navy-900</strong><br><br>
+            accent-color<br>
+            <strong>→ color-blue-600</strong><br><br>
+            space-loose<br>
+            <strong>→ spacing-xl</strong>
+          </div>
+          <span class="token-chain__note">Intent — set per brand</span>
+        </div>
+        <div class="token-chain__arrow">→</div>
+        <div class="token-chain__tier token-chain__tier--component">
+          <span class="token-chain__label">Component</span>
+          <div class="token-chain__box">
+            tile-headline-color<br>
+            <strong>→ heading-color</strong><br><br>
+            tile-accent-color<br>
+            <strong>→ accent-color</strong><br><br>
+            tile-padding<br>
+            <strong>→ space-loose</strong>
+          </div>
+          <span class="token-chain__note">Scoped to a component</span>
+        </div>
+      </div>
+      <div class="fragment highlight-box">
+        Change a primitive — it ripples through semantic and component tokens automatically.
+      </div>
+    </section>
+
+    <!-- Brand comparison -->
+    <section>
+      <h2>Same tokens, different brands</h2>
+      <table class="brand-table">
+        <tr>
+          <th>Semantic token</th>
+          <th>Broadsheet</th>
+          <th>Tabloid</th>
+          <th>Financial</th>
+        </tr>
+        <tr>
+          <td><code>heading-font</code></td>
+          <td>Playfair Display</td>
+          <td>Nunito</td>
+          <td>Lora</td>
+        </tr>
+        <tr>
+          <td><code>heading-color</code></td>
+          <td><code>#0a1633</code></td>
+          <td><code>rgba(0,0,0,0.81)</code></td>
+          <td><code>#111</code></td>
+        </tr>
+        <tr>
+          <td><code>accent-color</code></td>
+          <td><code>#096dd2</code></td>
+          <td><code>rgba(0,0,0,0.58)</code></td>
+          <td><code>#0f6cc9</code></td>
+        </tr>
+        <tr>
+          <td><code>space-loose</code></td>
+          <td>24px</td>
+          <td>12px</td>
+          <td>8px</td>
+        </tr>
+      </table>
+      <div class="fragment highlight-box">
+        The component never changes. Only the token mappings do.
+      </div>
+    </section>
+  </section>
+
+  <!-- ============================================================
+       LIVE DEMO
+       ============================================================ -->
+  <section>
+    <section>
+      <h2>Live demo</h2>
+      <p class="muted">Switching to the interactive demo…</p>
+      <p><a href="demo.html" target="_blank">Open demo →</a></p>
+    </section>
+
+    <section>
+      <h2>What to notice</h2>
+      <ul>
+        <li><strong>Brand switch</strong> — same HTML, completely different look</li>
+        <li><strong>Layout switch</strong> — elements rearrange, tokens stay the same</li>
+        <li><strong>Dark mode</strong> — each brand has its own dark palette</li>
+        <li><strong>Token inspector</strong> — edit a primitive and see it ripple through</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- ============================================================
+       FIGMA & WORKFLOW
+       ============================================================ -->
+  <section>
+    <section>
+      <h2>Where Figma fits in</h2>
+    </section>
+
+    <section>
+      <h2>The same idea, different tools</h2>
+      <div class="two-col">
+        <div>
+          <h3>In Figma</h3>
+          <ul>
+            <li>Variables = primitive tokens</li>
+            <li>Modes = brand overrides</li>
+            <li>Auto layout = structure</li>
+          </ul>
+        </div>
+        <div>
+          <h3>In code</h3>
+          <ul>
+            <li>CSS custom properties = primitive tokens</li>
+            <li>Brand stylesheets = semantic mappings</li>
+            <li>CSS Grid / layout classes = structure</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fragment highlight-box">
+        Designers and developers share the same token names, the same layers, the same mental model.
+      </div>
+    </section>
+
+    <section>
+      <h2>A shared language</h2>
+      <p>When a designer says <code>heading-color</code><br>
+         and a developer writes <code>var(--heading-color)</code><br>
+         they mean the same thing.</p>
+      <p class="fragment">Tokens bridge the gap between design and code.</p>
+    </section>
+  </section>
+
+  <!-- ============================================================
+       WRAP UP
+       ============================================================ -->
+  <section>
+    <section>
+      <h2>What tokens give us</h2>
+      <ul>
+        <li><strong>Consistency</strong> — one source of truth, not scattered values</li>
+        <li><strong>Speed</strong> — rebrand by changing a file, not a codebase</li>
+        <li><strong>Shared vocabulary</strong> — designers and developers speak the same language</li>
+        <li><strong>Composability</strong> — appearance and structure are independent</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Questions &amp; discussion</h2>
+      <p class="muted">Thanks for listening.</p>
+    </section>
+  </section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    transition: 'slide',
+    controlsTutorial: false,
+    progress: true,
+  });
+</script>
+</body>
+</html>

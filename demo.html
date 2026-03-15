@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Tokens Demo</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Lora:wght@400;700&family=Nunito:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Primitive tokens (always loaded) -->
+  <link rel="stylesheet" href="src/css/primitives.css">
+
+  <!-- Brand tokens (swappable) -->
+  <link rel="stylesheet" href="src/css/brands/broadsheet.css" id="brand-css">
+
+  <!-- Dark mode overrides per brand (loaded after brand so it wins) -->
+  <link rel="stylesheet" href="src/css/brands/broadsheet-dark.css" id="mode-css" disabled>
+
+  <!-- Component styles (always loaded) -->
+  <link rel="stylesheet" href="src/css/components/tile.css">
+  <link rel="stylesheet" href="src/css/components/page.css">
+  <link rel="stylesheet" href="src/css/components/panel.css">
+
+  <!-- Layout (swappable — loaded after components so it can override) -->
+  <link rel="stylesheet" href="src/css/layouts/layout-stacked.css" id="layout-css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #f0f0f0;
+      font-family: system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .page-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 2rem 0;
+    }
+    .page-header__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #222;
+      margin: 0 0 0.5rem;
+    }
+    .page-header__desc {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #555;
+      margin: 0;
+      max-width: 680px;
+    }
+    .page-header__desc strong {
+      color: #333;
+    }
+    @media (max-width: 959px) {
+      .page-header {
+        padding: 1rem 1rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <h1 class="page-header__title">Design Tokens</h1>
+    <p class="page-header__desc">One story tile, three brands, three layouts — all from the same HTML. Switch the <strong>brand</strong> to swap semantic tokens (colours, typography, spacing). Switch the <strong>layout</strong> to rearrange elements with CSS Grid. The two controls are independent: tokens control appearance, layout classes control structure.</p>
+  </header>
+
+  <div class="page">
+    <main class="page__main">
+      <article class="story-tile">
+        <p class="story-tile__kicker">Politics</p>
+        <img
+          class="story-tile__image"
+          src="https://picsum.photos/seed/tokens/800/533"
+          alt="Placeholder image"
+        >
+        <h2 class="story-tile__headline">Government Announces Sweeping Changes to National Infrastructure Plan</h2>
+        <p class="story-tile__summary">The federal government has unveiled a revised infrastructure strategy that prioritises regional transport links and renewable energy projects over previously planned urban motorway expansions.</p>
+        <p class="story-tile__byline">By Jane Mitchell · March 14, 2026</p>
+      </article>
+    </main>
+
+    <aside class="page__panel">
+      <div class="panel">
+        <div class="panel__section">
+          <h3 class="panel__heading">Brand</h3>
+          <div class="switcher" id="brand-switcher">
+            <button class="switcher__btn" aria-pressed="true" data-brand="broadsheet">Broadsheet</button>
+            <button class="switcher__btn" aria-pressed="false" data-brand="tabloid">Tabloid</button>
+            <button class="switcher__btn" aria-pressed="false" data-brand="financial">Financial</button>
+          </div>
+        </div>
+
+        <div class="panel__section">
+          <h3 class="panel__heading">Layout</h3>
+          <div class="switcher" id="layout-switcher">
+            <button class="switcher__btn" aria-pressed="true" data-layout="layout-stacked">Stacked</button>
+            <button class="switcher__btn" aria-pressed="false" data-layout="layout-side">Side</button>
+            <button class="switcher__btn" aria-pressed="false" data-layout="layout-overlay">Overlay</button>
+          </div>
+        </div>
+
+        <div class="panel__section">
+          <h3 class="panel__heading">Token Inspector</h3>
+          <button class="panel__reset" id="reset-btn">Reset to brand defaults</button>
+          <ul class="token-list" id="token-list"></ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="src/js/app.js"></script>
+</body>
+</html>

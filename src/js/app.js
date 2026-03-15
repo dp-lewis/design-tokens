@@ -182,6 +182,27 @@ const BRANDS = {
   }
 };
 
+// Map semantic tokens to the tile element(s) they style
+const TOKEN_TARGETS = {
+  '--heading-font':   ['.story-tile__headline'],
+  '--heading-size':   ['.story-tile__headline'],
+  '--heading-weight': ['.story-tile__headline'],
+  '--heading-color':  ['.story-tile__headline'],
+  '--body-font':      ['.story-tile__summary'],
+  '--body-size':      ['.story-tile__summary'],
+  '--body-color':     ['.story-tile__summary'],
+  '--ui-font':        ['.story-tile__kicker', '.story-tile__byline'],
+  '--label-size':     ['.story-tile__kicker'],
+  '--caption-size':   ['.story-tile__byline'],
+  '--caption-color':  ['.story-tile__byline'],
+  '--accent-color':   ['.story-tile__kicker'],
+  '--surface-bg':     ['.story-tile'],
+  '--border-color':   ['.story-tile'],
+  '--space-tight':    ['.story-tile'],
+  '--space-loose':    ['.story-tile'],
+  '--radius':         ['.story-tile', '.story-tile__image'],
+};
+
 let currentBrand = 'broadsheet';
 let currentMode = 'light';
 let overrides = {};
@@ -322,6 +343,21 @@ function renderTokenList() {
     }
 
     selectGroup.appendChild(select);
+
+    // Hover highlight on tile elements
+    const targets = TOKEN_TARGETS[semantic];
+    if (targets) {
+      li.addEventListener('mouseenter', () => {
+        for (const sel of targets) {
+          document.querySelectorAll(sel).forEach(el => el.classList.add('token-highlight'));
+        }
+      });
+      li.addEventListener('mouseleave', () => {
+        for (const sel of targets) {
+          document.querySelectorAll(sel).forEach(el => el.classList.remove('token-highlight'));
+        }
+      });
+    }
 
     li.appendChild(semanticEl);
     li.appendChild(selectGroup);

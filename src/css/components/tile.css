@@ -56,3 +56,10 @@
   color: var(--caption-color);
   margin: 0;
 }
+
+/* Token inspector hover highlight */
+.token-highlight {
+  outline: 2px solid #096dd2;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
