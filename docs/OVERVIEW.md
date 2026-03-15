@@ -105,54 +105,95 @@ When you switch brand tokens, the fields repopulate with that brand's values. Wh
 ### Architecture
 
 ```
-package.json               ← npm scripts (dev server)
+index.html                     ← single page: story tile + side panel
+package.json                   ← npm scripts (dev server)
 src/
   css/
-    primitives.css         ← shared primitive tokens (colors, spacing, type)
+    primitives.css             ← shared primitive tokens (colours, spacing, type)
     brands/
-      broadsheet.css       ← Broadsheet semantic tokens (reference primitives)
-      tabloid.css          ← Tabloid semantic tokens
-      financial.css        ← Financial semantic tokens
+      broadsheet.css           ← Broadsheet semantic tokens + element ordering
+      broadsheet-dark.css      ← Broadsheet dark mode colour overrides
+      tabloid.css              ← Tabloid semantic tokens + element ordering
+      tabloid-dark.css         ← Tabloid dark mode colour overrides
+      financial.css            ← Financial semantic tokens + element ordering
+      financial-dark.css       ← Financial dark mode colour overrides
+    components/
+      tile.css                 ← story tile styles (consumes semantic tokens)
+      page.css                 ← page layout (tile + side panel)
+      panel.css                ← side panel styles
     layouts/
-      layout-a.css         ← CSS Grid layout variant A
-      layout-b.css         ← CSS Grid layout variant B
-  index.html               ← story tile + side panel
+      layout-stacked.css       ← vertical card layout
+      layout-side.css          ← image left, text right
+      layout-overlay.css       ← image full-bleed, text overlaid
+  js/
+    app.js                     ← switching logic + token inspector
 ```
 
-No build tools, no preprocessors — just CSS files served by a local dev server via `npm start`. The primitives stylesheet is always loaded; the brand and layout stylesheets are swapped by the side panel controls via JavaScript.
+No build tools, no preprocessors — just CSS files served by a local dev server via `npm start`.
+
+### The CSS cascade — how switching works
+
+The demo works entirely through the CSS cascade. The HTML includes a series of `<link>` stylesheet tags in a specific order, and JavaScript switches brands, modes, and layouts by changing which files are loaded:
+
+```html
+<!-- 1. Primitives — always loaded, defines raw values -->
+<link rel="stylesheet" href="src/css/primitives.css">
+
+<!-- 2. Brand — swappable, maps semantic tokens → primitives -->
+<link rel="stylesheet" href="src/css/brands/broadsheet.css" id="brand-css">
+
+<!-- 3. Dark mode — per-brand colour overrides, toggled via disabled attribute -->
+<link rel="stylesheet" href="src/css/brands/broadsheet-dark.css" id="mode-css" disabled>
+
+<!-- 4. Component styles — always loaded, consume semantic tokens -->
+<link rel="stylesheet" href="src/css/components/tile.css">
+
+<!-- 5. Layout — swappable, overrides component structure via CSS Grid -->
+<link rel="stylesheet" href="src/css/layouts/layout-stacked.css" id="layout-css">
+```
+
+Each layer builds on the one before it:
+
+1. **Primitives** define the raw palette (`--color-navy-900: #0a1633`)
+2. **Brand** maps semantic names to primitives (`--heading-color: var(--color-navy-900)`)
+3. **Dark mode** overrides colour semantics with dark-appropriate primitives (`--heading-color: var(--color-slate-100)`) — loaded after the brand file so it wins in the cascade
+4. **Components** consume semantic tokens (`color: var(--heading-color)`) — they never reference primitives directly
+5. **Layouts** override component structure (e.g. switching from flex column to CSS Grid) — loaded last so they can override component display properties
+
+**Switching is just changing which file is loaded:**
+
+- **Brand switch** → JS changes the `href` of `#brand-css` (e.g. `broadsheet.css` → `tabloid.css`) and updates `#mode-css` to the matching dark file
+- **Dark mode toggle** → JS toggles the `disabled` attribute on `#mode-css`
+- **Layout switch** → JS changes the `href` of `#layout-css` (e.g. `layout-stacked.css` → `layout-side.css`)
+
+No styles are generated or manipulated by JavaScript. The browser's native cascade resolution handles everything — when a new stylesheet loads, the custom property values change, and every element that references them updates automatically.
+
+The only exception is the token inspector's live editing feature, which applies inline style overrides on `:root` via `document.documentElement.style.setProperty()`. These override everything in the cascade (since inline styles have highest precedence) and are cleared when you reset or switch brands.
 
 ### Token layers in CSS
 
 Primitive tokens define the raw palette in `:root`. Brand files then map semantic tokens to the appropriate primitive values:
 
 ```css
-/* css/primitives.css */
+/* src/css/primitives.css */
 :root {
-  --color-blue-800: #0A1E5C;
-  --color-neutral-900: #1A1A1A;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --font-serif: Georgia, serif;
-  --font-sans: Arial, sans-serif;
+  --color-navy-900: #0a1633;
+  --font-playfair: "Playfair Display";
+  --spacing-xl: 24px;
 }
 
-/* css/brands/broadsheet.css */
+/* src/css/brands/broadsheet.css */
 :root {
-  --tile-headline-color: var(--color-blue-800);
-  --tile-headline-font: var(--font-serif);
-  --tile-padding: var(--spacing-md);
+  --heading-color: var(--color-navy-900);
+  --heading-font: var(--font-playfair);
+  --space-loose: var(--spacing-xl);
+}
+
+/* src/css/components/tile.css */
+.story-tile__headline {
+  color: var(--heading-color);
+  font-family: var(--heading-font);
 }
 ```
 
-The HTML and component CSS only reference semantic tokens like `var(--tile-headline-color)`. Switching brand is as simple as swapping which brand stylesheet is active.
-
-## Next steps
-
-Once the team has reviewed this overview, the PoC will move into implementation:
-
-1. Write `primitives.css` with shared primitive tokens
-2. Write per-brand CSS files with semantic token mappings
-3. Write layout variant CSS files using CSS Grid
-4. Build the story tile HTML using semantic custom properties
-5. Build the side panel with brand/layout controls, token display, and inline editing
-6. Walk through the demo as a team
+Components only reference semantic tokens like `var(--heading-color)`. Switching brand swaps which semantic-to-primitive mappings are active. The component CSS never changes.
