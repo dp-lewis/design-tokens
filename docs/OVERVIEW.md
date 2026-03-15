@@ -6,9 +6,11 @@ Design tokens are **named design decisions stored as data**. Instead of hard-cod
 
 Think of it this way: tokens are a **single source of truth for every brand's look and feel**. Designers decide the values, developers consume them, and every component reads from the same definition. When a value changes, it changes everywhere — no hunting through stylesheets, no copy-paste drift.
 
-### Primitive tokens vs semantic tokens
+### Token layers
 
-Tokens work in two layers:
+Token systems can have many layers — global, alias, component, variant — each adding a level of indirection and meaning. In practice, teams often introduce a **component token** layer between semantic and component consumption, so that a component like a button has its own named tokens (`--button-background`) that reference semantic tokens (`--color-action`), which in turn reference primitives. Some systems go further still.
+
+For this demo, we use two layers to keep things clear:
 
 - **Primitive tokens** hold raw values with no opinion about where they're used. They're the palette.
 - **Semantic tokens** reference primitive tokens and assign meaning — they describe *what the value is for*, not what it is.
@@ -96,7 +98,7 @@ When you switch brand tokens, the fields repopulate with that brand's values. Wh
 
 ### In summary
 
-- A small set of tokens (colors, typography, spacing) defined as CSS custom properties at two layers: primitive and semantic
+- A small set of tokens (colors, typography, spacing) defined as CSS custom properties across two layers (primitive and semantic) — a simplification of real-world systems, chosen to keep the demo focused
 - Brand-specific CSS files map semantic tokens to brand-appropriate primitive values
 - A preview page renders the **same story tile HTML** with a side panel showing the active token chain, across 2–3 brands
 
