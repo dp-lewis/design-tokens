@@ -28,6 +28,9 @@
   <link rel="stylesheet" href="src/css/layouts/layout-stacked.css" id="layout-css">
 
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       background: #f0f0f0;
@@ -91,8 +94,8 @@
           <h3 class="panel__heading">Brand</h3>
           <div class="switcher" id="brand-switcher">
             <button class="switcher__btn" aria-pressed="true" data-brand="broadsheet">Broadsheet</button>
-            <button class="switcher__btn" aria-pressed="false" data-brand="tabloid">Tabloid</button>
             <button class="switcher__btn" aria-pressed="false" data-brand="financial">Financial</button>
+            <button class="switcher__btn" aria-pressed="false" data-brand="tabloid">Tabloid</button>
           </div>
         </div>
 
