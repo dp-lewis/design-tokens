@@ -1,0 +1,10 @@
+/* ==========================================================================
+   Layout: Image First
+   Image on top, text content below.
+   ========================================================================== */
+
+.story-tile__image    { order: 1; }
+.story-tile__kicker   { order: 2; }
+.story-tile__headline { order: 3; }
+.story-tile__summary  { order: 4; }
+.story-tile__byline   { order: 5; }
